@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+task run(dependsOn: 'build') << {
+    ant.java(
+            classname: '',
+            fork: true,
+            classpath: "${sourceSets.main.runtimeClasspath.asPath}"
+    )
+}
+
+sourceSets {
+    functional {
+        compileClasspath = sourceSets.main.output + configurations.testRuntime
+        runtimeClasspath = output + sourceSets.main.output + configurations.testRuntime
+    }
+}
+
+dependencies {
+    compile 'log4j:log4j:1.2.16'
+    testCompile 'junit:junit:4.8.1',
+            'org.mockito:mockito-all:1.9.0',
+            'org.hamcrest:hamcrest-all:1.3'
+}
