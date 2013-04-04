@@ -38,12 +38,19 @@ public class WheelContainer {
 
     private void addClass(Class<?> klazz) {
         implementationMapping.put(klazz, klazz);
-        Class<?>[] interfaces = klazz.getInterfaces();
+        handleInterfacesAndSuperClass(klazz, klazz);
+    }
+
+    private void handleInterfacesAndSuperClass(Class<?> superKlazz, Class<?> klazz) {
+        Class<?>[] interfaces = superKlazz.getInterfaces();
         for (Class aInterface : interfaces) {
             implementationMapping.put(aInterface, klazz);
         }
-        Class<?> superclass = klazz.getSuperclass();
-        implementationMapping.put(superclass, klazz);
+        Class<?> superclass = superKlazz.getSuperclass();
+        if (superclass != null) {
+            implementationMapping.put(superclass, klazz);
+            handleInterfacesAndSuperClass(superclass, klazz);
+        }
     }
 
     public Set<Class> getWheels() {
