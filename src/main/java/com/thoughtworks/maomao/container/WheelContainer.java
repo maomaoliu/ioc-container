@@ -6,32 +6,46 @@ import com.thoughtworks.maomao.annotations.Wheel;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class WheelContainer {
-    private List<Class> wheels;
+    private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
 
     public WheelContainer(String packageName) {
-        wheels = new ArrayList<Class>();
         try {
             ClassPath classPath = ClassPath.from(ClassLoader.getSystemClassLoader());
-            ImmutableSet<ClassPath.ClassInfo> topLevelClasses = classPath.getTopLevelClassesRecursive(packageName);
-            for (ClassPath.ClassInfo classInfo : topLevelClasses) {
+            ImmutableSet<ClassPath.ClassInfo> allClasses = classPath.getTopLevelClassesRecursive(packageName);
+            for (ClassPath.ClassInfo classInfo : allClasses) {
                 Class<?> klazz = classInfo.load();
-                Annotation[] annotations = klazz.getAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation.annotationType().equals(Wheel.class)) {
-                        wheels.add(klazz);
-                    }
-                }
+                handleClass(klazz);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Class> getWheels() {
-        return wheels;
+    private void handleClass(Class<?> klazz) {
+        Annotation[] annotations = klazz.getAnnotations();
+        for (Annotation annotation : annotations) {
+            if (annotation.annotationType().equals(Wheel.class)) {
+                addClass(klazz);
+            }
+        }
+    }
+
+    private void addClass(Class<?> klazz) {
+        implementationMapping.put(klazz, klazz);
+        Class<?>[] interfaces = klazz.getInterfaces();
+        for (Class aInterface : interfaces) {
+            implementationMapping.put(aInterface, klazz);
+        }
+    }
+
+    public Set<Class> getWheels() {
+        return new HashSet<Class>(implementationMapping.values());
+    }
+
+    public Class findImplementation(Class klazz) {
+        return implementationMapping.get(klazz);
     }
 }
