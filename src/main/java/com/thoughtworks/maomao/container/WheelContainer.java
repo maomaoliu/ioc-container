@@ -16,7 +16,7 @@ public class WheelContainer {
         wheels = new ArrayList<Class>();
         try {
             ClassPath classPath = ClassPath.from(ClassLoader.getSystemClassLoader());
-            ImmutableSet<ClassPath.ClassInfo> topLevelClasses = classPath.getTopLevelClasses(packageName);
+            ImmutableSet<ClassPath.ClassInfo> topLevelClasses = classPath.getTopLevelClassesRecursive(packageName);
             for (ClassPath.ClassInfo classInfo : topLevelClasses) {
                 Class<?> klazz = classInfo.load();
                 Annotation[] annotations = klazz.getAnnotations();
