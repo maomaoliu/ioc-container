@@ -6,7 +6,10 @@ import com.thoughtworks.maomao.annotations.Wheel;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class WheelContainer {
     private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
@@ -39,6 +42,8 @@ public class WheelContainer {
         for (Class aInterface : interfaces) {
             implementationMapping.put(aInterface, klazz);
         }
+        Class<?> superclass = klazz.getSuperclass();
+        implementationMapping.put(superclass, klazz);
     }
 
     public Set<Class> getWheels() {
