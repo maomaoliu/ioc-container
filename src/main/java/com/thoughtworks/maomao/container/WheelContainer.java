@@ -2,10 +2,14 @@ package com.thoughtworks.maomao.container;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
+import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.annotations.Wheel;
+import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -59,5 +63,54 @@ public class WheelContainer {
 
     public Class findImplementation(Class klazz) {
         return implementationMapping.get(klazz);
+    }
+
+
+    public <T> T getWheel(Class<T> klazz) throws InvalidWheelException {
+        Class implementationClass = implementationMapping.get(klazz);
+        if (implementationClass == null) {
+            throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
+        }
+        return createInstance(implementationClass);
+    }
+
+    private <T> T createInstance(Class implementationClass) throws InvalidWheelException {
+        T wheel = null;
+        Constructor targetConstructor = getTargetConstructor(implementationClass);
+        Class<?>[] parameterTypes = targetConstructor.getParameterTypes();
+        Object[] parameters = new Object[parameterTypes.length];
+        for (int i = 0; i < parameters.length; i++) {
+            Class parameterType = parameterTypes[i];
+            parameters[i] = getWheel(parameterType);
+        }
+        try {
+            wheel = (T) targetConstructor.newInstance(parameters);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
+        return wheel;
+    }
+
+    private Constructor getTargetConstructor(Class implementationClass) throws InvalidWheelException {
+        Constructor<?>[] constructors = implementationClass.getConstructors();
+        for (Constructor constructor : constructors) {
+            Annotation[] annotations = constructor.getAnnotations();
+            for (Annotation annotation : annotations) {
+                if (annotation.annotationType().equals(Glue.class)) {
+                    return constructor;
+                }
+            }
+        }
+        try {
+            return implementationClass.getConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new InvalidWheelException(e);
+        }
     }
 }

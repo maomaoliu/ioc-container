@@ -22,7 +22,7 @@ public class WheelContainerTest {
     public void should_also_load_wheels_in_specific_package_and_sub_packages() {
         WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub");
         Set<Class> wheels = container.getWheels();
-        assertEquals(wheels.size(), 2);
+        assertEquals(wheels.size(), 6);
         assertTrue(wheels.contains(Stub1.class));
         assertTrue(wheels.contains(SubStub1.class));
     }
