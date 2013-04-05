@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,6 +33,9 @@ public class WheelContainer {
     }
 
     private void handleClass(Class<?> klazz) {
+        if(klazz.getEnclosingClass() != null && !Modifier.isStatic(klazz.getModifiers())){
+            return;
+        }
         Annotation[] annotations = klazz.getAnnotations();
         for (Annotation annotation : annotations) {
             if (annotation.annotationType().equals(Wheel.class)) {
