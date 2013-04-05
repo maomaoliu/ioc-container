@@ -42,6 +42,10 @@ public class WheelContainer {
                 addClass(klazz);
             }
         }
+        Class<?>[] innerClasses = klazz.getClasses();
+        for (Class innerClass : innerClasses) {
+            handleClass(innerClass);
+        }
     }
 
     private void addClass(Class<?> klazz) {

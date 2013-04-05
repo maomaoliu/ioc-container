@@ -1,12 +1,14 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.stub.Stub1;
+import com.thoughtworks.maomao.stub.invalid.StubWithoutPublicConstructor;
 import com.thoughtworks.maomao.stub.sub.SubStub1;
 import org.junit.Test;
 
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class WheelContainerTest {

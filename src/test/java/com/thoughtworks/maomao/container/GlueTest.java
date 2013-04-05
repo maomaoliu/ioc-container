@@ -6,11 +6,14 @@ import com.thoughtworks.maomao.stub.StubByConstructor;
 import com.thoughtworks.maomao.stub.StubByConstructorWithMultipleParameters;
 import com.thoughtworks.maomao.stub.invalid.StubWithUnknownClassInConstructor;
 import com.thoughtworks.maomao.stub.invalid.StubWithoutDefaultConstructor;
+import com.thoughtworks.maomao.stub.invalid.StubWithoutPublicConstructor;
 import com.thoughtworks.maomao.stub.sub.SubStub1;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.thoughtworks.maomao.stub.invalid.StubWithoutPublicConstructor.*;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class GlueTest {
 
@@ -43,6 +46,24 @@ public class GlueTest {
         SubStub1 subStub1 = stub.getSubStub1();
         assertNotNull(stub1);
         assertNotNull(subStub1);
+    }
+
+    @Test
+    public void should_throw_exception_if_constructor_is_not_public() {
+        Class[] invalidClasses = new Class[]{PrivateGlueConstructor.class,
+                                      ProtectedGlueConstructor.class,
+                                      DefaultGlueConstructor.class,
+                                      PrivateDefaultConstructor.class,
+                                      ProtectedDefaultConstructor.class,
+                                      DefaultDefaultConstructor.class};
+        for (Class invalidClass : invalidClasses) {
+            try {
+                container.getWheel(invalidClass);
+            } catch (InvalidWheelException e) {
+                continue;
+            }
+            fail();
+        }
     }
 
     @Test(expected = InvalidWheelException.class)
