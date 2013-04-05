@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class WheelContainerTest {
     @Test
@@ -24,7 +22,7 @@ public class WheelContainerTest {
     public void should_also_load_wheels_in_specific_package_and_sub_packages() {
         WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub");
         Set<Class> wheels = container.getWheels();
-        assertEquals(wheels.size(), 12);
+        assertEquals(wheels.size(), 14);
         assertTrue(wheels.contains(Stub1.class));
         assertTrue(wheels.contains(SubStub1.class));
         assertTrue(wheels.contains(StubWithoutPublicConstructor.PrivateDefaultConstructor.class));

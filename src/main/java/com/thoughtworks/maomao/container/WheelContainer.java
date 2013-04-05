@@ -33,7 +33,7 @@ public class WheelContainer {
     }
 
     private void handleClass(Class<?> klazz) {
-        if(klazz.getEnclosingClass() != null && !Modifier.isStatic(klazz.getModifiers())){
+        if(isNonStaticInnerClass(klazz)){
             return;
         }
         Annotation[] annotations = klazz.getAnnotations();
@@ -46,6 +46,10 @@ public class WheelContainer {
         for (Class innerClass : innerClasses) {
             handleClass(innerClass);
         }
+    }
+
+    private boolean isNonStaticInnerClass(Class<?> klazz) {
+        return klazz.getEnclosingClass() != null && !Modifier.isStatic(klazz.getModifiers());
     }
 
     private void addClass(Class<?> klazz) {
@@ -83,7 +87,6 @@ public class WheelContainer {
     }
 
     private <T> T createInstance(Class implementationClass) throws InvalidWheelException {
-        T wheel = null;
         Constructor targetConstructor = getTargetConstructor(implementationClass);
         Class<?>[] parameterTypes = targetConstructor.getParameterTypes();
         Object[] parameters = new Object[parameterTypes.length];
@@ -92,33 +95,38 @@ public class WheelContainer {
             parameters[i] = getWheel(parameterType);
         }
         try {
-            wheel = (T) targetConstructor.newInstance(parameters);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            return (T) targetConstructor.newInstance(parameters);
+        } catch (Exception e) {
+            throw new InvalidWheelException(e);
         }
-
-
-        return wheel;
     }
 
     private Constructor getTargetConstructor(Class implementationClass) throws InvalidWheelException {
         Constructor<?>[] constructors = implementationClass.getConstructors();
-        for (Constructor constructor : constructors) {
-            Annotation[] annotations = constructor.getAnnotations();
-            for (Annotation annotation : annotations) {
-                if (annotation.annotationType().equals(Glue.class)) {
-                    return constructor;
-                }
-            }
+        Constructor targetConstructor = getTargetConstructorWithAnnotation(constructors);
+        if (targetConstructor != null) {
+            return targetConstructor;
         }
         try {
             return implementationClass.getConstructor();
         } catch (NoSuchMethodException e) {
             throw new InvalidWheelException(e);
         }
+    }
+
+    private Constructor getTargetConstructorWithAnnotation(Constructor<?>[] constructors) throws InvalidWheelException {
+        Constructor targetConstructor = null;
+        for (Constructor constructor : constructors) {
+            Annotation[] annotations = constructor.getAnnotations();
+            for (Annotation annotation : annotations) {
+                if (annotation.annotationType().equals(Glue.class)) {
+                    if (targetConstructor != null) {
+                        throw new InvalidWheelException("More than one Glued constructor");
+                    }
+                    targetConstructor = constructor;
+                }
+            }
+        }
+        return targetConstructor;
     }
 }
