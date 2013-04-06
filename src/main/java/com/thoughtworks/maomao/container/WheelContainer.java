@@ -3,23 +3,29 @@ package com.thoughtworks.maomao.container;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class WheelContainer {
+
+    private static final String ANNOTATIONS_DIR = "com.thoughtworks.maomao.annotations";
+
+    private final List<Class<? extends Annotation>> registeredAnnotations;
+
     private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
+    private Map<Class, List<Class>> annotationMapping = new HashMap<Class, List<Class>>();
 
     public WheelContainer(String packageName) {
+        registeredAnnotations = new AnnotationRegistry(ANNOTATIONS_DIR).getRegisteredAnnotations();
+        findWheels(packageName);
+    }
+
+    private void findWheels(String packageName) {
         try {
             ClassPath classPath = ClassPath.from(ClassLoader.getSystemClassLoader());
             ImmutableSet<ClassPath.ClassInfo> allClasses = classPath.getTopLevelClassesRecursive(packageName);
@@ -38,7 +44,13 @@ public class WheelContainer {
         }
         Annotation[] annotations = klazz.getAnnotations();
         for (Annotation annotation : annotations) {
-            if (annotation.annotationType().equals(Wheel.class)) {
+            if(registeredAnnotations.contains(annotation.annotationType())){
+                List<Class> classes = annotationMapping.get(annotation.annotationType());
+                if (classes == null){
+                    classes = new ArrayList<Class>();
+                }
+                classes.add(klazz);
+                annotationMapping.put(annotation.annotationType(), classes);
                 addClass(klazz);
             }
         }
@@ -76,7 +88,6 @@ public class WheelContainer {
     public Class findImplementation(Class klazz) {
         return implementationMapping.get(klazz);
     }
-
 
     public <T> T getWheel(Class<T> klazz) throws InvalidWheelException {
         Class implementationClass = implementationMapping.get(klazz);
@@ -128,5 +139,9 @@ public class WheelContainer {
             }
         }
         return targetConstructor;
+    }
+
+    public List<Class> getClassesByAnnotation(Class<? extends Annotation> annotation) {
+        return annotationMapping.get(annotation);
     }
 }
