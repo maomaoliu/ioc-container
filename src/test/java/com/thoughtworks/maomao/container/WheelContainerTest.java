@@ -14,7 +14,7 @@ public class WheelContainerTest {
     public void should_load_wheels_in_specific_package() {
         WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub.sub");
         Set<Class> wheels = container.getWheels();
-        assertEquals(wheels.size(), 1);
+        assertEquals(1, wheels.size());
         assertTrue(wheels.contains(SubStub1.class));
     }
 
@@ -22,7 +22,7 @@ public class WheelContainerTest {
     public void should_also_load_wheels_in_specific_package_and_sub_packages() {
         WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub");
         Set<Class> wheels = container.getWheels();
-        assertEquals(wheels.size(), 14);
+        assertEquals(14, wheels.size());
         assertTrue(wheels.contains(Stub1.class));
         assertTrue(wheels.contains(SubStub1.class));
         assertTrue(wheels.contains(StubWithoutPublicConstructor.PrivateDefaultConstructor.class));
@@ -33,6 +33,6 @@ public class WheelContainerTest {
     public void should_load_nothing_if_there_is_no_class_or_package() {
         WheelContainer container = new WheelContainer("com.thoughtworks.maomao.container");
         Set<Class> wheels = container.getWheels();
-        assertEquals(wheels.size(), 0);
+        assertEquals(0, wheels.size());
     }
 }
