@@ -39,7 +39,7 @@ public class WheelContainer {
     }
 
     private void handleClass(Class<?> klazz) {
-        if(isNonStaticInnerClass(klazz)){
+        if(isNotPublicClass(klazz) || isNonStaticInnerClass(klazz)){
             return;
         }
         Annotation[] annotations = klazz.getAnnotations();
@@ -58,6 +58,10 @@ public class WheelContainer {
         for (Class innerClass : innerClasses) {
             handleClass(innerClass);
         }
+    }
+
+    private boolean isNotPublicClass(Class<?> klazz) {
+        return !Modifier.isPublic(klazz.getModifiers());
     }
 
     private boolean isNonStaticInnerClass(Class<?> klazz) {
