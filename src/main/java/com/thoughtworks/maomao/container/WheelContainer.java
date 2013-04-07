@@ -85,7 +85,7 @@ public class WheelContainer {
         }
     }
 
-    public Set<Class> getWheels() {
+    public Set<Class> getWheelClasses() {
         return new HashSet<Class>(implementationMapping.values());
     }
 
