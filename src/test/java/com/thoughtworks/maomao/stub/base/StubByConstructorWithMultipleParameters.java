@@ -1,8 +1,8 @@
-package com.thoughtworks.maomao.stub;
+package com.thoughtworks.maomao.stub.base;
 
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.sub.SubStub1;
+import com.thoughtworks.maomao.stub.base.sub.SubStub1;
 
 @Wheel
 public class StubByConstructorWithMultipleParameters {

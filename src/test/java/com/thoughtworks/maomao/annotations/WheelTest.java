@@ -1,6 +1,6 @@
 package com.thoughtworks.maomao.annotations;
 
-import com.thoughtworks.maomao.stub.Stub1;
+import com.thoughtworks.maomao.stub.base.Stub1;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;

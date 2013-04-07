@@ -1,17 +1,17 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
-import com.thoughtworks.maomao.stub.Stub1;
-import com.thoughtworks.maomao.stub.StubByConstructor;
-import com.thoughtworks.maomao.stub.StubByConstructorWithMultipleParameters;
-import com.thoughtworks.maomao.stub.invalid.StubWithUnknownClassInConstructor;
-import com.thoughtworks.maomao.stub.invalid.StubWithoutDefaultConstructor;
-import com.thoughtworks.maomao.stub.invalid.StubWithoutTwoGlueConstructors;
-import com.thoughtworks.maomao.stub.sub.SubStub1;
+import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.stub.base.StubByConstructor;
+import com.thoughtworks.maomao.stub.base.StubByConstructorWithMultipleParameters;
+import com.thoughtworks.maomao.stub.base.invalid.StubWithUnknownClassInConstructor;
+import com.thoughtworks.maomao.stub.base.invalid.StubWithoutDefaultConstructor;
+import com.thoughtworks.maomao.stub.base.invalid.StubWithoutTwoGlueConstructors;
+import com.thoughtworks.maomao.stub.base.sub.SubStub1;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.thoughtworks.maomao.stub.invalid.StubWithoutPublicConstructor.*;
+import static com.thoughtworks.maomao.stub.base.invalid.StubWithoutPublicConstructor.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.stub;
+package com.thoughtworks.maomao.stub.base;
 
 import com.thoughtworks.maomao.annotations.Wheel;
 

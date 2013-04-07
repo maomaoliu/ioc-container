@@ -1,8 +1,8 @@
-package com.thoughtworks.maomao.stub.invalid;
+package com.thoughtworks.maomao.stub.base.invalid;
 
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.Stub1;
+import com.thoughtworks.maomao.stub.base.Stub1;
 
 public class StubWithoutPublicConstructor {
 

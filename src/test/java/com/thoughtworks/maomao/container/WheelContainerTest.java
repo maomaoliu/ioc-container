@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.container;
 
-import com.thoughtworks.maomao.stub.Stub1;
-import com.thoughtworks.maomao.stub.invalid.StubWithoutPublicConstructor;
-import com.thoughtworks.maomao.stub.sub.SubStub1;
+import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.stub.base.invalid.StubWithoutPublicConstructor;
+import com.thoughtworks.maomao.stub.base.sub.SubStub1;
 import org.junit.Test;
 
 import java.util.Set;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class WheelContainerTest {
     @Test
     public void should_load_wheels_in_specific_package() {
-        WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub.sub");
+        WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub.base.sub");
         Set<Class> wheels = container.getWheels();
         assertEquals(1, wheels.size());
         assertTrue(wheels.contains(SubStub1.class));
@@ -20,7 +20,7 @@ public class WheelContainerTest {
 
     @Test
     public void should_also_load_wheels_in_specific_package_and_sub_packages() {
-        WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub");
+        WheelContainer container = new WheelContainer("com.thoughtworks.maomao.stub.base");
         Set<Class> wheels = container.getWheels();
         assertEquals(14, wheels.size());
         assertTrue(wheels.contains(Stub1.class));

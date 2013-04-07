@@ -1,6 +1,7 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.stub.*;
+import com.thoughtworks.maomao.stub.base.*;
 import org.junit.Before;
 import org.junit.Test;
 

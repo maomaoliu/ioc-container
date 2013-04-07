@@ -24,7 +24,7 @@ public class AnnotationRegistryTest {
 
     @Test
     public void shouldRegisterZeroAnnotationsInSpecificPackage() throws ClassNotFoundException {
-        AnnotationRegistry annotationRegistry = new AnnotationRegistry("com.thoughtworks.maomao.stub.sub");
+        AnnotationRegistry annotationRegistry = new AnnotationRegistry("com.thoughtworks.maomao.stub.base.sub");
         List<Class<? extends Annotation>> registeredAnnotations
                 = annotationRegistry.getRegisteredAnnotations();
         assertThat(registeredAnnotations.size(), is(0));
