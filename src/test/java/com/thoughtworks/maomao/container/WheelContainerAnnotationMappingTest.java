@@ -12,7 +12,7 @@ public class WheelContainerAnnotationMappingTest {
     private WheelContainer container;
 
     @Test
-    public void shouldFindClassesByAnnotation() {
+    public void should_find_classes_by_annotation() {
         container = new WheelContainer("com.thoughtworks.maomao.stub.base");
         List<Class> classes = container.getClassesByAnnotation(Wheel.class);
         assertEquals(14, classes.size());

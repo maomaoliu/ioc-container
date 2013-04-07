@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 
 public class AnnotationRegistryTest {
     @Test
-    public void shouldRegisterAnnotationsInSpecificPackage() throws ClassNotFoundException {
+    public void should_register_annotations_in_specific_package() throws ClassNotFoundException {
         AnnotationRegistry annotationRegistry = new AnnotationRegistry("com.thoughtworks.maomao.stub.annotations");
         List<Class<? extends Annotation>> registeredAnnotations
                 = annotationRegistry.getRegisteredAnnotations();
@@ -23,7 +23,7 @@ public class AnnotationRegistryTest {
     }
 
     @Test
-    public void shouldRegisterZeroAnnotationsInSpecificPackage() throws ClassNotFoundException {
+    public void should_register_zero_annotations_in_specific_package() throws ClassNotFoundException {
         AnnotationRegistry annotationRegistry = new AnnotationRegistry("com.thoughtworks.maomao.stub.base.sub");
         List<Class<? extends Annotation>> registeredAnnotations
                 = annotationRegistry.getRegisteredAnnotations();
