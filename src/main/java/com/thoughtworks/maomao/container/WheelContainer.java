@@ -2,7 +2,9 @@ package com.thoughtworks.maomao.container;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
+import com.thoughtworks.maomao.annotations.Configuration;
 import com.thoughtworks.maomao.annotations.Glue;
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.io.IOException;
@@ -19,10 +21,23 @@ public class WheelContainer {
 
     private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
     private Map<Class, List<Class>> annotationMapping = new HashMap<Class, List<Class>>();
+    private Map<Class, List> initBeans;
 
     public WheelContainer(String packageName) {
         registeredAnnotations = new AnnotationRegistry(ANNOTATIONS_DIR).getRegisteredAnnotations();
         findWheels(packageName);
+        getInitBeans();
+    }
+
+    private void getInitBeans() {
+        List<Class> configurationClasses = annotationMapping.get(Configuration.class);
+        if(configurationClasses == null) return;
+        List<Class> wheelConfigurationClasses = new ArrayList<Class>();
+        for (Class wheel : annotationMapping.get(Wheel.class)) {
+            if (configurationClasses.contains(wheel))
+                wheelConfigurationClasses.add(wheel);
+        }
+        initBeans = new ConfigurationLoader(wheelConfigurationClasses).getBeans();
     }
 
     private void findWheels(String packageName) {
@@ -39,14 +54,14 @@ public class WheelContainer {
     }
 
     private void handleClass(Class<?> klazz) {
-        if(isNotPublicClass(klazz) || isNonStaticInnerClass(klazz)){
+        if (isNotPublicClass(klazz) || isNonStaticInnerClass(klazz)) {
             return;
         }
         Annotation[] annotations = klazz.getAnnotations();
         for (Annotation annotation : annotations) {
-            if(registeredAnnotations.contains(annotation.annotationType())){
+            if (registeredAnnotations.contains(annotation.annotationType())) {
                 List<Class> classes = annotationMapping.get(annotation.annotationType());
-                if (classes == null){
+                if (classes == null) {
                     classes = new ArrayList<Class>();
                 }
                 classes.add(klazz);
@@ -97,6 +112,9 @@ public class WheelContainer {
         Class implementationClass = implementationMapping.get(klazz);
         if (implementationClass == null) {
             throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
+        }
+        if (initBeans.get(klazz) != null) {
+            return (T) initBeans.get(klazz).get(0);
         }
         return createInstance(implementationClass);
     }
