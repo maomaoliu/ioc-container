@@ -2,7 +2,6 @@ package com.thoughtworks.maomao.stub.configrations;
 
 import com.thoughtworks.maomao.annotations.Bean;
 import com.thoughtworks.maomao.annotations.Configuration;
-import com.thoughtworks.maomao.annotations.Wheel;
 
 @Configuration
 public class WheelConfig {

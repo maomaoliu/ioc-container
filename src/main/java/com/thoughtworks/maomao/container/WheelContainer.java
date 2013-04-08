@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
 import com.thoughtworks.maomao.annotations.Configuration;
 import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.io.IOException;

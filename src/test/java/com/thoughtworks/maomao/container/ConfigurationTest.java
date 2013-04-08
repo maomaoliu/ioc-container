@@ -2,11 +2,9 @@ package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.configrations.Door;
-import com.thoughtworks.maomao.stub.configrations.House;
 import com.thoughtworks.maomao.stub.configrations.Window;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 
 public class ConfigurationTest {

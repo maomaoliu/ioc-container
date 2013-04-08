@@ -1,8 +1,7 @@
 package com.thoughtworks.maomao.container;
 
-import com.thoughtworks.maomao.annotations.Configuration;
-import com.thoughtworks.maomao.stub.configrations.WheelConfig;
 import com.thoughtworks.maomao.stub.configrations.Door;
+import com.thoughtworks.maomao.stub.configrations.WheelConfig;
 import org.junit.Test;
 
 import java.util.Arrays;
