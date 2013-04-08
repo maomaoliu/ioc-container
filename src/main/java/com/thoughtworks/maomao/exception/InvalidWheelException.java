@@ -1,6 +1,6 @@
 package com.thoughtworks.maomao.exception;
 
-public class InvalidWheelException extends Exception {
+public class InvalidWheelException extends RuntimeException {
     public InvalidWheelException(Exception e) {
         super(e);
     }

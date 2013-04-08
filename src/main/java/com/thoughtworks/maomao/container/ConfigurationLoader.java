@@ -1,6 +1,7 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.annotations.Bean;
+import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -35,11 +36,11 @@ public class ConfigurationLoader {
                 }
             }
         } catch (InstantiationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new InvalidWheelException(e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new InvalidWheelException(e);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new InvalidWheelException(e);
         }
     }
 

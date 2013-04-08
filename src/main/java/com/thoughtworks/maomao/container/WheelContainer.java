@@ -103,7 +103,7 @@ public class WheelContainer {
         return implementationMapping.get(klazz);
     }
 
-    public <T> T getWheel(Class<T> klazz) throws InvalidWheelException {
+    public <T> T getWheel(Class<T> klazz) {
         Class implementationClass = implementationMapping.get(klazz);
         if (implementationClass == null) {
             throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
@@ -114,7 +114,7 @@ public class WheelContainer {
         return createInstance(implementationClass);
     }
 
-    private <T> T createInstance(Class implementationClass) throws InvalidWheelException {
+    private <T> T createInstance(Class implementationClass) {
         Constructor targetConstructor = getTargetConstructor(implementationClass);
         if (targetConstructor.getAnnotation(Glue.class) == null) {
             try {
@@ -159,13 +159,13 @@ public class WheelContainer {
         }
     }
 
-    private <T> void invokeMethod(T result, Method method) throws InvalidWheelException, IllegalAccessException, InvocationTargetException {
+    private <T> void invokeMethod(T result, Method method) throws IllegalAccessException, InvocationTargetException {
         Class<?>[] parameterTypes = method.getParameterTypes();
         Object[] parameters = getParameters(parameterTypes);
         method.invoke(result, parameters);
     }
 
-    private Object[] getParameters(Class<?>[] parameterTypes) throws InvalidWheelException {
+    private Object[] getParameters(Class<?>[] parameterTypes) {
         Object[] parameters = new Object[parameterTypes.length];
         for (int i = 0; i < parameters.length; i++) {
             Class parameterType = parameterTypes[i];
@@ -174,7 +174,7 @@ public class WheelContainer {
         return parameters;
     }
 
-    private Constructor getTargetConstructor(Class implementationClass) throws InvalidWheelException {
+    private Constructor getTargetConstructor(Class implementationClass) {
         Constructor<?>[] constructors = implementationClass.getConstructors();
         Constructor targetConstructor = getTargetConstructorWithAnnotation(constructors);
         if (targetConstructor != null) {
@@ -187,7 +187,7 @@ public class WheelContainer {
         }
     }
 
-    private Constructor getTargetConstructorWithAnnotation(Constructor<?>[] constructors) throws InvalidWheelException {
+    private Constructor getTargetConstructorWithAnnotation(Constructor<?>[] constructors) {
         Constructor targetConstructor = null;
         for (Constructor constructor : constructors) {
             Annotation[] annotations = constructor.getAnnotations();

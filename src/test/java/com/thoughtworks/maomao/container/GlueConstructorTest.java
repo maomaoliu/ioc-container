@@ -25,13 +25,13 @@ public class GlueConstructorTest {
     }
 
     @Test
-    public void should_glue_by_default_constructor() throws InvalidWheelException {
+    public void should_glue_by_default_constructor() {
         Stub1 stub = container.getWheel(Stub1.class);
         assertNotNull(stub);
     }
 
     @Test
-    public void should_glue_by_constructor() throws InvalidWheelException {
+    public void should_glue_by_constructor() {
         StubByConstructor stub = container.getWheel(StubByConstructor.class);
         assertNotNull(stub);
         Stub1 stub1 = stub.getStub1();
@@ -39,7 +39,7 @@ public class GlueConstructorTest {
     }
 
     @Test
-    public void should_glue_by_constructor_for_inner_static_class() throws InvalidWheelException {
+    public void should_glue_by_constructor_for_inner_static_class() {
         Stub1.InnerStaticStub1 stub = container.getWheel(Stub1.InnerStaticStub1.class);
         assertNotNull(stub);
         Stub1 stub1 = stub.getStub1();
@@ -47,7 +47,7 @@ public class GlueConstructorTest {
     }
 
     @Test
-    public void should_glue_by_constructor_with_multiple_parameters() throws InvalidWheelException {
+    public void should_glue_by_constructor_with_multiple_parameters() {
         StubByConstructorWithMultipleParameters stub = container.getWheel(StubByConstructorWithMultipleParameters.class);
         assertNotNull(stub);
         Stub1 stub1 = stub.getStub1();
@@ -75,17 +75,17 @@ public class GlueConstructorTest {
     }
 
     @Test(expected = InvalidWheelException.class)
-    public void should_throw_exception_if_more_than_one_glue_constructors() throws InvalidWheelException {
+    public void should_throw_exception_if_more_than_one_glue_constructors() {
         container.getWheel(StubWithoutTwoGlueConstructors.class);
     }
 
     @Test(expected = InvalidWheelException.class)
-    public void should_throw_exception_if_constructor_without_glue() throws InvalidWheelException {
+    public void should_throw_exception_if_constructor_without_glue() {
         container.getWheel(StubWithoutDefaultConstructor.class);
     }
 
     @Test(expected = InvalidWheelException.class)
-    public void should_throw_exception_if_constructor_with_unknown_class() throws InvalidWheelException {
+    public void should_throw_exception_if_constructor_with_unknown_class() {
         container.getWheel(StubWithUnknownClassInConstructor.class);
     }
 }
