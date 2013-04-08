@@ -9,9 +9,11 @@ import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.*;
+
+import static com.google.common.base.CaseFormat.LOWER_CAMEL;
+import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 
 public class WheelContainer {
 
@@ -121,17 +123,62 @@ public class WheelContainer {
 
     private <T> T createInstance(Class implementationClass) throws InvalidWheelException {
         Constructor targetConstructor = getTargetConstructor(implementationClass);
-        Class<?>[] parameterTypes = targetConstructor.getParameterTypes();
+        if (targetConstructor.getAnnotation(Glue.class) == null) {
+            try {
+                T result = (T) targetConstructor.newInstance();
+                Method[] methods = result.getClass().getDeclaredMethods();
+                for (Method method : methods) {
+                    method.setAccessible(true);
+                    if (method.getAnnotation(Glue.class) != null) {
+                        if (!Modifier.isPublic(method.getModifiers())) {
+                            throw new InvalidWheelException("Setter should be public.");
+                        }
+                        Field field = result.getClass().getDeclaredField(UPPER_CAMEL.to(LOWER_CAMEL, method.getName().replace("set", "")));
+                        if (field == null) {
+                            throw new InvalidWheelException("Field does not exist.");
+                        }
+                        invokeMethod(result, method);
+                    }
+                }
+                Field[] fields = result.getClass().getDeclaredFields();
+                for (Field field : fields) {
+                    field.setAccessible(true);
+                    if (field.getAnnotation(Glue.class) != null) {
+                        Method method = result.getClass().getMethod(String.format("set%s", LOWER_CAMEL.to(UPPER_CAMEL, field.getName())), field.getType());
+                        if (!Modifier.isPublic(method.getModifiers())) {
+                            throw new InvalidWheelException("Setter should be public.");
+                        }
+                        invokeMethod(result, method);
+                    }
+                }
+                return result;
+            } catch (Exception e) {
+                throw new InvalidWheelException(e);
+            }
+        } else {
+            Class<?>[] parameterTypes = targetConstructor.getParameterTypes();
+            Object[] parameters = getParameters(parameterTypes);
+            try {
+                return (T) targetConstructor.newInstance(parameters);
+            } catch (Exception e) {
+                throw new InvalidWheelException(e);
+            }
+        }
+    }
+
+    private <T> void invokeMethod(T result, Method method) throws InvalidWheelException, IllegalAccessException, InvocationTargetException {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Object[] parameters = getParameters(parameterTypes);
+        method.invoke(result, parameters);
+    }
+
+    private Object[] getParameters(Class<?>[] parameterTypes) throws InvalidWheelException {
         Object[] parameters = new Object[parameterTypes.length];
         for (int i = 0; i < parameters.length; i++) {
             Class parameterType = parameterTypes[i];
             parameters[i] = getWheel(parameterType);
         }
-        try {
-            return (T) targetConstructor.newInstance(parameters);
-        } catch (Exception e) {
-            throw new InvalidWheelException(e);
-        }
+        return parameters;
     }
 
     private Constructor getTargetConstructor(Class implementationClass) throws InvalidWheelException {

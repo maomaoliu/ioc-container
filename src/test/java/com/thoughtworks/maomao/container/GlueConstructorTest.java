@@ -15,7 +15,7 @@ import static com.thoughtworks.maomao.stub.base.invalid.StubWithoutPublicConstru
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-public class GlueTest {
+public class GlueConstructorTest {
 
     private WheelContainer container;
 
