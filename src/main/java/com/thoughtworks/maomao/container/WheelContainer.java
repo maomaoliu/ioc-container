@@ -33,13 +33,7 @@ public class WheelContainer {
 
     private void getInitBeans() {
         List<Class> configurationClasses = annotationMapping.get(Configuration.class);
-        if(configurationClasses == null) return;
-        List<Class> wheelConfigurationClasses = new ArrayList<Class>();
-        for (Class wheel : annotationMapping.get(Wheel.class)) {
-            if (configurationClasses.contains(wheel))
-                wheelConfigurationClasses.add(wheel);
-        }
-        initBeans = new ConfigurationLoader(wheelConfigurationClasses).getBeans();
+        initBeans = new ConfigurationLoader(configurationClasses).getBeans();
     }
 
     private void findWheels(String packageName) {

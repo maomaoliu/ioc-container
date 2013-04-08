@@ -5,7 +5,6 @@ import com.thoughtworks.maomao.annotations.Configuration;
 import com.thoughtworks.maomao.annotations.Wheel;
 
 @Configuration
-@Wheel
 public class WheelConfig {
 
     public static final String WOODEN = "wooden";

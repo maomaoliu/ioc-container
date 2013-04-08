@@ -19,12 +19,6 @@ public class ConfigurationTest {
     }
 
     @Test (expected = InvalidWheelException.class)
-    public void should_throw_exception_if_configuration_is_without_wheel() throws InvalidWheelException {
-        WheelContainer wheelContainer = new WheelContainer("com.thoughtworks.maomao.stub");
-        wheelContainer.getWheel(House.class);
-    }
-
-    @Test (expected = InvalidWheelException.class)
     public void should_throw_exception_if_no_configuration() throws InvalidWheelException {
         WheelContainer wheelContainer = new WheelContainer("com.thoughtworks.maomao.stub");
         wheelContainer.getWheel(Window.class);
