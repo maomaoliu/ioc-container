@@ -23,6 +23,7 @@ public class WheelContainer {
     private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
     private Map<Class, List<Class>> annotationMapping = new HashMap<Class, List<Class>>();
     private Map<Class, List> initBeans;
+    private WheelContainer parent;
 
     public WheelContainer(String packageName) {
         registeredAnnotations = new AnnotationRegistry(ANNOTATIONS_DIR).getRegisteredAnnotations();
@@ -205,5 +206,16 @@ public class WheelContainer {
 
     public List<Class> getClassesByAnnotation(Class<? extends Annotation> annotation) {
         return annotationMapping.get(annotation);
+    }
+
+    public void setParent(WheelContainer parent) {
+        this.parent = parent;
+        this.implementationMapping.putAll(parent.implementationMapping);
+        this.annotationMapping.putAll(parent.annotationMapping);
+        this.initBeans.putAll(parent.initBeans);
+    }
+
+    public WheelContainer getParent() {
+        return parent;
     }
 }

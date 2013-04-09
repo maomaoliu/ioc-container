@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class ConfigurationLoaderTest {
 
     @Test
-    public void should_load_beans_by_configuration() throws Exception {
+    public void should_load_beans_by_configuration() {
         List<Class> configClasses = Arrays.asList(new Class[] {WheelConfig.class});
         ConfigurationLoader configurationLoader = new ConfigurationLoader(configClasses);
         Map<Class, List> beans = configurationLoader.getBeans();
