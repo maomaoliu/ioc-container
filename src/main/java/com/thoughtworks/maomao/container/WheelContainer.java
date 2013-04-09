@@ -97,15 +97,23 @@ public class WheelContainer {
     }
 
     public Set<Class> getWheelClasses() {
-        return new HashSet<Class>(implementationMapping.values());
+        HashSet<Class> wheelClasses = new HashSet<Class>(implementationMapping.values());
+        if (parent != null)
+            wheelClasses.addAll(parent.getWheelClasses());
+        return wheelClasses;
     }
 
     public Class findImplementation(Class klazz) {
-        return implementationMapping.get(klazz);
+        Class implementClass = implementationMapping.get(klazz);
+        if (implementClass != null)
+            return implementClass;
+        if (parent != null)
+            return parent.findImplementation(klazz);
+        return null;
     }
 
     public <T> T getWheel(Class<T> klazz) {
-        Class implementationClass = implementationMapping.get(klazz);
+        Class implementationClass = findImplementation(klazz);
         if (implementationClass == null) {
             throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
         }
@@ -204,15 +212,8 @@ public class WheelContainer {
         return targetConstructor;
     }
 
-    public List<Class> getClassesByAnnotation(Class<? extends Annotation> annotation) {
-        return annotationMapping.get(annotation);
-    }
-
     public void setParent(WheelContainer parent) {
         this.parent = parent;
-        this.implementationMapping.putAll(parent.implementationMapping);
-        this.annotationMapping.putAll(parent.annotationMapping);
-        this.initBeans.putAll(parent.initBeans);
     }
 
     public WheelContainer getParent() {
