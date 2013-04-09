@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.stub.configrations;
+package com.thoughtworks.maomao.stub.configurations;
 
 import com.thoughtworks.maomao.annotations.Bean;
 import com.thoughtworks.maomao.annotations.Configuration;

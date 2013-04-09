@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
-import com.thoughtworks.maomao.stub.configrations.Door;
-import com.thoughtworks.maomao.stub.configrations.Window;
+import com.thoughtworks.maomao.stub.configurations.Door;
+import com.thoughtworks.maomao.stub.configurations.Window;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
