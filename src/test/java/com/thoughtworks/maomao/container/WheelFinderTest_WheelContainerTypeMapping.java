@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WheelContainerTypeMappingTest {
+public class WheelFinderTest_WheelContainerTypeMapping {
 
     private WheelFinder wheelFinder;
 

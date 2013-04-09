@@ -9,7 +9,7 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class WheelContainerTest {
+public class WheelFinderTest_FindWheelClasses {
     @Test
     public void should_load_wheels_in_specific_package() {
         WheelFinder wheelFinder = new WheelFinder("com.thoughtworks.maomao.stub.base.sub");
