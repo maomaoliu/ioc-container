@@ -1,11 +1,13 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
+import com.thoughtworks.maomao.stub.scope.Person;
 import com.thoughtworks.maomao.stub.scope.child.Child;
 import com.thoughtworks.maomao.stub.scope.parent.Parent;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertNotNull;
 
@@ -38,5 +40,11 @@ public class ParentContainerTest {
     @Test(expected = InvalidWheelException.class)
     public void parent_should_not_get_bean_from_child() {
         parentContainer.getWheel(Child.class);
+    }
+
+    @Test
+    public void should_get_child_instance_when_parent_also_has() {
+        Person person = childContainer.getWheel(Person.class);
+        assertTrue(person.age() < 10);
     }
 }
