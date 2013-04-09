@@ -1,12 +1,8 @@
 package com.thoughtworks.maomao.container;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.reflect.ClassPath;
-import com.thoughtworks.maomao.annotations.Configuration;
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.*;
@@ -16,100 +12,25 @@ import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 
 public class WheelContainer {
 
-    private static final String ANNOTATIONS_DIR = "com.thoughtworks.maomao.annotations";
-
-    private final List<Class<? extends Annotation>> registeredAnnotations;
-
-    private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
-    private Map<Class, List<Class>> annotationMapping = new HashMap<Class, List<Class>>();
+    private WheelFinder wheelFinder;
     private Map<Class, List> initBeans;
     private WheelContainer parent;
 
     public WheelContainer(String packageName) {
-        registeredAnnotations = new AnnotationRegistry(ANNOTATIONS_DIR).getRegisteredAnnotations();
-        findWheels(packageName);
+        wheelFinder = new WheelFinder(packageName);
         getInitBeans();
     }
 
     private void getInitBeans() {
-        List<Class> configurationClasses = annotationMapping.get(Configuration.class);
+        List<Class> configurationClasses = wheelFinder.getConfigClasses();
         initBeans = new ConfigurationLoader(configurationClasses).getBeans();
     }
 
-    private void findWheels(String packageName) {
-        try {
-            ClassPath classPath = ClassPath.from(ClassLoader.getSystemClassLoader());
-            ImmutableSet<ClassPath.ClassInfo> allClasses = classPath.getTopLevelClassesRecursive(packageName);
-            for (ClassPath.ClassInfo classInfo : allClasses) {
-                Class<?> klazz = classInfo.load();
-                handleClass(klazz);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handleClass(Class<?> klazz) {
-        if (isNotPublicClass(klazz) || isNonStaticInnerClass(klazz)) {
-            return;
-        }
-        Annotation[] annotations = klazz.getAnnotations();
-        for (Annotation annotation : annotations) {
-            if (registeredAnnotations.contains(annotation.annotationType())) {
-                List<Class> classes = annotationMapping.get(annotation.annotationType());
-                if (classes == null) {
-                    classes = new ArrayList<Class>();
-                }
-                classes.add(klazz);
-                annotationMapping.put(annotation.annotationType(), classes);
-                addClass(klazz);
-            }
-        }
-        Class<?>[] innerClasses = klazz.getClasses();
-        for (Class innerClass : innerClasses) {
-            handleClass(innerClass);
-        }
-    }
-
-    private boolean isNotPublicClass(Class<?> klazz) {
-        return !Modifier.isPublic(klazz.getModifiers());
-    }
-
-    private boolean isNonStaticInnerClass(Class<?> klazz) {
-        return klazz.getEnclosingClass() != null && !Modifier.isStatic(klazz.getModifiers());
-    }
-
-    private void addClass(Class<?> klazz) {
-        implementationMapping.put(klazz, klazz);
-        handleInterfacesAndSuperClass(klazz, klazz);
-    }
-
-    private void handleInterfacesAndSuperClass(Class<?> superKlazz, Class<?> klazz) {
-        Class<?>[] interfaces = superKlazz.getInterfaces();
-        for (Class aInterface : interfaces) {
-            implementationMapping.put(aInterface, klazz);
-        }
-        Class<?> superclass = superKlazz.getSuperclass();
-        if (superclass != null) {
-            implementationMapping.put(superclass, klazz);
-            handleInterfacesAndSuperClass(superclass, klazz);
-        }
-    }
-
     public Set<Class> getWheelClasses() {
-        HashSet<Class> wheelClasses = new HashSet<Class>(implementationMapping.values());
+        Set<Class> wheelClasses = wheelFinder.getWheelClasses();
         if (parent != null)
             wheelClasses.addAll(parent.getWheelClasses());
         return wheelClasses;
-    }
-
-    public Class findImplementation(Class klazz) {
-        Class implementClass = implementationMapping.get(klazz);
-        if (implementClass != null)
-            return implementClass;
-        if (parent != null)
-            return parent.findImplementation(klazz);
-        return null;
     }
 
     public <T> T getWheel(Class<T> klazz) {
@@ -121,6 +42,15 @@ public class WheelContainer {
             return (T) initBeans.get(klazz).get(0);
         }
         return createInstance(implementationClass);
+    }
+
+    private <T> Class findImplementation(Class<T> klazz) {
+        Class implementation = wheelFinder.findImplementation(klazz);
+        if (implementation != null)
+            return implementation;
+        if (parent != null)
+            return parent.wheelFinder.findImplementation(klazz);
+        return null;
     }
 
     private <T> T createInstance(Class implementationClass) {
