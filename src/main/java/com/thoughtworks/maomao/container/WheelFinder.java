@@ -2,7 +2,6 @@ package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.annotations.Wheel;
 
-import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class WheelFinder {
