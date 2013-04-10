@@ -21,6 +21,11 @@ public class WheelContainer {
         getInitBeans();
     }
 
+    public WheelContainer(String packageName, WheelContainer parentContainer) {
+        this(packageName);
+        parent = parentContainer;
+    }
+
     private void getInitBeans() {
         List<Class> configurationClasses = wheelFinder.getConfigClasses();
         initBeans = new ConfigurationLoader(configurationClasses).getBeans();
@@ -140,13 +145,5 @@ public class WheelContainer {
             }
         }
         return targetConstructor;
-    }
-
-    public void setParent(WheelContainer parent) {
-        this.parent = parent;
-    }
-
-    public WheelContainer getParent() {
-        return parent;
     }
 }

@@ -7,29 +7,26 @@ import com.thoughtworks.maomao.stub.scope.parent.Parent;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertNotNull;
 
 public class ParentContainerTest {
 
-    WheelContainer parentContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.parent");
-    WheelContainer childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child");
+    private WheelContainer parentContainer;
+    private WheelContainer childContainer;
 
     @Before
-    public void setUp(){
-        assertNotNull(parentContainer.getWheel(Parent.class));
-        assertNotNull(childContainer.getWheel(Child.class));
-        try {
-            parentContainer.getWheel(Child.class);
-            fail();
-        } catch (Exception e) {}
-        try {
-            childContainer.getWheel(Parent.class);
-            fail();
-        } catch (Exception e) {}
+    public void setup(){
+        parentContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.parent");
+        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child", parentContainer);
+    }
 
-        childContainer.setParent(parentContainer);
+    @Test(expected = InvalidWheelException.class)
+    public void should_not_find_Parent_class_in_child_container_if_not_set_parent_container() {
+        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child");
+        childContainer.getWheel(Parent.class);
     }
 
     @Test
