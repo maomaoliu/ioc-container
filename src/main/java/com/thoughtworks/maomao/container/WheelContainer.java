@@ -15,10 +15,12 @@ public class WheelContainer {
     private WheelFinder wheelFinder;
     private Map<Class, List> initBeans;
     private WheelContainer parent;
+    private Loader loader;
 
     public WheelContainer(String packageName) {
-        wheelFinder = new WheelFinder(packageName);
-        initBeans = new ConfigurationLoader(packageName).getBeans();
+        loader = new Loader(packageName);
+        wheelFinder = new WheelFinder(loader);
+        initBeans = new ConfigurationLoader(loader).getBeans();
     }
 
     public WheelContainer(String packageName, WheelContainer parentContainer) {

@@ -15,11 +15,12 @@ public class ConfigurationLoaderTest {
 
     @Test
     public void should_load_beans_by_configuration() {
-        ConfigurationLoader configurationLoader = new ConfigurationLoader("com.thoughtworks.maomao.stub.configurations");
+        Loader loader = new Loader("com.thoughtworks.maomao.stub.configurations");
+        ConfigurationLoader configurationLoader = new ConfigurationLoader(loader);
         Map<Class, List> beans = configurationLoader.getBeans();
         assertThat(beans.size(), is(1));
         List doors = beans.get(Door.class);
         assertThat(doors.size(), is(1));
-        assertThat(((Door)doors.get(0)).getMaterial(), is(WheelConfig.WOODEN));
+        assertThat(((Door) doors.get(0)).getMaterial(), is(WheelConfig.WOODEN));
     }
 }

@@ -12,7 +12,8 @@ import static org.junit.Assert.*;
 public class WheelFinderTest_FindWheelClasses {
     @Test
     public void should_load_wheels_in_specific_package() {
-        WheelFinder wheelFinder = new WheelFinder("com.thoughtworks.maomao.stub.base.sub");
+        Loader loader = new Loader("com.thoughtworks.maomao.stub.base.sub");
+        WheelFinder wheelFinder = new WheelFinder(loader);
         Set<Class> wheels = wheelFinder.getWheelClasses();
         assertEquals(1, wheels.size());
         assertTrue(wheels.contains(SubStub1.class));
@@ -20,7 +21,8 @@ public class WheelFinderTest_FindWheelClasses {
 
     @Test
     public void should_also_load_wheels_in_specific_package_and_sub_packages() {
-        WheelFinder wheelFinder = new WheelFinder("com.thoughtworks.maomao.stub.base");
+        Loader loader = new Loader("com.thoughtworks.maomao.stub.base");
+        WheelFinder wheelFinder = new WheelFinder(loader);
         Set<Class> wheels = wheelFinder.getWheelClasses();
         assertEquals(23, wheels.size());
         assertTrue(wheels.contains(Stub1.class));
@@ -31,7 +33,8 @@ public class WheelFinderTest_FindWheelClasses {
 
     @Test
     public void should_load_nothing_if_there_is_no_class_or_package() {
-        WheelFinder wheelFinder = new WheelFinder("com.thoughtworks.maomao.container");
+        Loader loader = new Loader("com.thoughtworks.maomao.container");
+        WheelFinder wheelFinder = new WheelFinder(loader);
         Set<Class> wheels = wheelFinder.getWheelClasses();
         assertEquals(0, wheels.size());
     }
