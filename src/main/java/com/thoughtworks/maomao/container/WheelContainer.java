@@ -26,13 +26,6 @@ public class WheelContainer {
         parent = parentContainer;
     }
 
-    public Set<Class> getWheelClasses() {
-        Set<Class> wheelClasses = wheelFinder.getWheelClasses();
-        if (parent != null)
-            wheelClasses.addAll(parent.getWheelClasses());
-        return wheelClasses;
-    }
-
     public <T> T getWheel(Class<T> klazz) {
         checkType(klazz);
         if (initBeanInstances.get(klazz) != null) {

@@ -3,7 +3,6 @@ package com.thoughtworks.maomao.container;
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -40,15 +39,15 @@ public class WheelCreator {
     private <T> T createInstanceBySetter(Constructor targetConstructor) {
         try {
             T result = (T) targetConstructor.newInstance();
-            handleMethods(result);
-            handleFields(result);
+            handleAnnotatedMethods(result);
+            handleAnnotatedFields(result);
             return result;
         } catch (Exception e) {
             throw new InvalidWheelException(e);
         }
     }
 
-    private <T> void handleFields(T result) throws Exception {
+    private <T> void handleAnnotatedFields(T result) throws Exception {
         Field[] fields = result.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
@@ -58,7 +57,7 @@ public class WheelCreator {
         }
     }
 
-    private <T> void handleMethods(T result) throws Exception {
+    private <T> void handleAnnotatedMethods(T result) throws Exception {
         Method[] methods = result.getClass().getDeclaredMethods();
         for (Method method : methods) {
             method.setAccessible(true);
@@ -120,14 +119,11 @@ public class WheelCreator {
     private Constructor getTargetConstructorWithAnnotation(Constructor<?>[] constructors) {
         Constructor targetConstructor = null;
         for (Constructor constructor : constructors) {
-            Annotation[] annotations = constructor.getAnnotations();
-            for (Annotation annotation : annotations) {
-                if (annotation.annotationType().equals(Glue.class)) {
-                    if (targetConstructor != null) {
-                        throw new InvalidWheelException("More than one Glued constructor");
-                    }
-                    targetConstructor = constructor;
+            if (constructor.getAnnotation(Glue.class) != null) {
+                if (targetConstructor != null) {
+                    throw new InvalidWheelException("More than one Glued constructor");
                 }
+                targetConstructor = constructor;
             }
         }
         return targetConstructor;

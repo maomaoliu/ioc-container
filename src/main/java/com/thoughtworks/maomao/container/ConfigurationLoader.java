@@ -28,9 +28,8 @@ public class ConfigurationLoader {
             Object object = klazz.newInstance();
             Method[] methods = klazz.getMethods();
             for (Method method : methods) {
-                for (Annotation annotation : method.getAnnotations()) {
-                    if (annotation.annotationType().equals(Bean.class))
-                        addBean(method, object);
+                if (method.getAnnotation(Bean.class) != null) {
+                    addBean(method, object);
                 }
             }
         } catch (Exception e) {
@@ -38,6 +37,7 @@ public class ConfigurationLoader {
         }
     }
 
+    //todo: check method modifier
     private void addBean(Method method, Object object) throws InvocationTargetException, IllegalAccessException {
         Class<?> type = method.getReturnType();
         TypeVariable<Method>[] typeParameters = method.getTypeParameters();
