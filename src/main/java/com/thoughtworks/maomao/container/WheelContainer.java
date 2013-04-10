@@ -40,10 +40,20 @@ public class WheelContainer {
         if (implementationClass == null) {
             throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
         }
+
         if (initBeans.get(klazz) != null) {
             return (T) initBeans.get(klazz).get(0);
         }
-        return createInstance(implementationClass);
+
+        Class childImplementation = wheelFinder.findImplementation(klazz);
+        T childInstance = null;
+        if (childImplementation != null) {
+            childInstance = createInstance(childImplementation);
+        }
+        if(childInstance!=null){
+            return childInstance;
+        }
+        return parent.getWheel(klazz);
     }
 
     private <T> Class findImplementation(Class<T> klazz) {

@@ -10,6 +10,7 @@ import org.junit.Test;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ParentContainerTest {
@@ -43,5 +44,11 @@ public class ParentContainerTest {
     public void should_get_child_instance_when_parent_also_has() {
         Person person = childContainer.getWheel(Person.class);
         assertTrue(person.age() < 10);
+    }
+
+    @Test
+    public void should_get_parent_config_bean() {
+        Parent parent = childContainer.getWheel(Parent.class);
+        assertEquals("maomao", parent.getName());
     }
 }
