@@ -15,8 +15,7 @@ public class ConfigurationLoaderTest {
 
     @Test
     public void should_load_beans_by_configuration() {
-        List<Class> configClasses = Arrays.asList(new Class[] {WheelConfig.class});
-        ConfigurationLoader configurationLoader = new ConfigurationLoader(configClasses);
+        ConfigurationLoader configurationLoader = new ConfigurationLoader("com.thoughtworks.maomao.stub.configurations");
         Map<Class, List> beans = configurationLoader.getBeans();
         assertThat(beans.size(), is(1));
         List doors = beans.get(Door.class);

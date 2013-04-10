@@ -25,10 +25,6 @@ public class WheelFinder {
         return new HashSet<Class>(implementationMapping.values());
     }
 
-    public List<Class> getConfigClasses() {
-        return annotationMapping.get(Configuration.class);
-    }
-
     public Class findImplementation(Class klazz) {
         return implementationMapping.get(klazz);
     }

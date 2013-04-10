@@ -18,17 +18,12 @@ public class WheelContainer {
 
     public WheelContainer(String packageName) {
         wheelFinder = new WheelFinder(packageName);
-        getInitBeans();
+        initBeans = new ConfigurationLoader(packageName).getBeans();
     }
 
     public WheelContainer(String packageName, WheelContainer parentContainer) {
         this(packageName);
         parent = parentContainer;
-    }
-
-    private void getInitBeans() {
-        List<Class> configurationClasses = wheelFinder.getConfigClasses();
-        initBeans = new ConfigurationLoader(configurationClasses).getBeans();
     }
 
     public Set<Class> getWheelClasses() {
