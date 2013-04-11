@@ -1,6 +1,6 @@
-package com.thoughtworks.maomao.annotations;
+package com.thoughtworks.maomao.unit.annotations;
 
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.stub.base.Stub;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
@@ -12,7 +12,7 @@ public class WheelTest {
 
     @Test
     public void should_get_annotation() {
-        Annotation[] annotations = Stub1.class.getDeclaredAnnotations();
+        Annotation[] annotations = Stub.class.getDeclaredAnnotations();
         assertThat(annotations.length, equalTo(1));
         assertThat((Class<Wheel>) annotations[0].annotationType(), equalTo(Wheel.class));
     }

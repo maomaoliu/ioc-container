@@ -1,5 +1,6 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.unit.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.configurations.Door;
 import com.thoughtworks.maomao.stub.configurations.House;

@@ -1,31 +1,31 @@
 package com.thoughtworks.maomao.stub;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub1;
-import com.thoughtworks.maomao.stub.base.sub.SubStub1;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.Stub;
+import com.thoughtworks.maomao.stub.base.sub.SubStub;
 
 @Wheel
 public class StubWithGluedFieldAndSetter {
     @Glue
-    private Stub1 stub1;
+    private Stub stub;
 
-    private SubStub1 subStub1;
+    private SubStub subStub;
 
-    public Stub1 getStub1() {
-        return stub1;
+    public Stub getStub() {
+        return stub;
     }
 
-    public void setStub1(Stub1 stub1) {
-        this.stub1 = stub1;
+    public void setStub(Stub stub) {
+        this.stub = stub;
     }
 
-    public SubStub1 getSubStub1() {
-        return subStub1;
+    public SubStub getSubStub() {
+        return subStub;
     }
 
     @Glue
-    public void setSubStub1(SubStub1 subStub1) {
-        this.subStub1 = subStub1;
+    public void setSubStub(SubStub subStub) {
+        this.subStub = subStub;
     }
 }

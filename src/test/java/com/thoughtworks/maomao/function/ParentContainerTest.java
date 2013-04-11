@@ -1,5 +1,6 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.unit.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.scope.Person;
 import com.thoughtworks.maomao.stub.scope.child.Child;
@@ -7,9 +8,7 @@ import com.thoughtworks.maomao.stub.scope.parent.Parent;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.unit.container;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
@@ -15,7 +15,7 @@ import static com.google.common.reflect.ClassPath.ClassInfo;
 import static com.google.common.reflect.ClassPath.from;
 
 public class Loader {
-    private static final String ANNOTATIONS_DIR = "com.thoughtworks.maomao.annotations";
+    private static final String ANNOTATIONS_DIR = "com.thoughtworks.maomao.unit.annotations";
 
     private List<Class<? extends Annotation>> registeredAnnotations;
     private Map<Class, List<Class>> annotationMapping = new HashMap<Class, List<Class>>();

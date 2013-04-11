@@ -1,13 +1,13 @@
 package com.thoughtworks.maomao.stub.base.invalid;
 
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.Stub;
 
 @Wheel
 public class StubWithoutDefaultConstructor {
-    private Stub1 stub1;
+    private Stub stub;
 
-    public StubWithoutDefaultConstructor(Stub1 stub1) {
-        this.stub1 = stub1;
+    public StubWithoutDefaultConstructor(Stub stub) {
+        this.stub = stub;
     }
 }

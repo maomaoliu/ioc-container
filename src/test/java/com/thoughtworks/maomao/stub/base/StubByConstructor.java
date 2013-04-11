@@ -1,19 +1,19 @@
 package com.thoughtworks.maomao.stub.base;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
 
 @Wheel
 public class StubByConstructor {
 
-    private Stub1 stub1;
+    private Stub stub;
 
     @Glue
-    public StubByConstructor(Stub1 stub1) {
-        this.stub1 = stub1;
+    public StubByConstructor(Stub stub) {
+        this.stub = stub;
     }
 
-    public Stub1 getStub1() {
-        return stub1;
+    public Stub getStub() {
+        return stub;
     }
 }

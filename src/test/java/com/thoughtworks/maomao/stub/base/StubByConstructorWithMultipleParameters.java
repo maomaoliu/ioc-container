@@ -1,25 +1,25 @@
 package com.thoughtworks.maomao.stub.base;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.sub.SubStub1;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.sub.SubStub;
 
 @Wheel
 public class StubByConstructorWithMultipleParameters {
-    private Stub1 stub1;
-    private SubStub1 subStub1;
+    private Stub stub;
+    private SubStub subStub;
 
     @Glue
-    public StubByConstructorWithMultipleParameters(Stub1 stub1, SubStub1 subStub1) {
-        this.stub1 = stub1;
-        this.subStub1 = subStub1;
+    public StubByConstructorWithMultipleParameters(Stub stub, SubStub subStub) {
+        this.stub = stub;
+        this.subStub = subStub;
     }
 
-    public Stub1 getStub1() {
-        return stub1;
+    public Stub getStub() {
+        return stub;
     }
 
-    public SubStub1 getSubStub1() {
-        return subStub1;
+    public SubStub getSubStub() {
+        return subStub;
     }
 }

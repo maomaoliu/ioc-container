@@ -1,9 +1,9 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.unit.container;
 
 import com.thoughtworks.maomao.stub.annotations.StubAnnotation;
 import org.junit.Test;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;

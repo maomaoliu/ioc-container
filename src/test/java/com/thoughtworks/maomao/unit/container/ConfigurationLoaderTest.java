@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.unit.container;
 
 import com.thoughtworks.maomao.stub.configurations.Bed;
 import com.thoughtworks.maomao.stub.configurations.Door;
@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;

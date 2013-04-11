@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.stub.base.invalid;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.Stub;
 
 public class StubWithoutPublicConstructor {
 
@@ -13,31 +13,31 @@ public class StubWithoutPublicConstructor {
 
     @Wheel
     public static class PrivateGlueConstructor{
-        private Stub1 stub1;
+        private Stub stub;
 
         @Glue
-        private PrivateGlueConstructor(Stub1 stub1) {
-            this.stub1 = stub1;
+        private PrivateGlueConstructor(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class ProtectedGlueConstructor{
-        private Stub1 stub1;
+        private Stub stub;
 
         @Glue
-        protected ProtectedGlueConstructor(Stub1 stub1) {
-            this.stub1 = stub1;
+        protected ProtectedGlueConstructor(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class DefaultGlueConstructor{
-        private Stub1 stub1;
+        private Stub stub;
 
         @Glue
-        DefaultGlueConstructor(Stub1 stub1) {
-            this.stub1 = stub1;
+        DefaultGlueConstructor(Stub stub) {
+            this.stub = stub;
         }
     }
 

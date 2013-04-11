@@ -1,87 +1,87 @@
 package com.thoughtworks.maomao.stub.base.invalid;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.Stub;
 
 public class StubWithInvalidSetter {
 
     @Wheel
     public static class StubWithGluedNonPublicSetter {
-        private Stub1 stub1;
+        private Stub stub;
 
-        public Stub1 getStub1() {
-            return stub1;
+        public Stub getStub() {
+            return stub;
         }
 
         @Glue
-        protected void setStub1(Stub1 stub1) {
-            this.stub1 = stub1;
+        protected void setStub(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class StubWithGluedFieldAndNonPublicSetter {
         @Glue
-        private Stub1 stub1;
+        private Stub stub;
 
-        public Stub1 getStub1() {
-            return stub1;
+        public Stub getStub() {
+            return stub;
         }
 
-        protected void setStub1(Stub1 stub1) {
-            this.stub1 = stub1;
+        protected void setStub(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class StubWithGluedFieldWithoutDefaultConstructor {
         @Glue
-        private Stub1 stub1;
+        private Stub stub;
 
-        public StubWithGluedFieldWithoutDefaultConstructor(Stub1 stub1) {
-            this.stub1 = stub1;
+        public StubWithGluedFieldWithoutDefaultConstructor(Stub stub) {
+            this.stub = stub;
         }
 
-        public Stub1 getStub1() {
-            return stub1;
+        public Stub getStub() {
+            return stub;
         }
 
-        public void setStub1(Stub1 stub1) {
-            this.stub1 = stub1;
+        public void setStub(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class StubWithGluedSetterWithoutDefaultConstructor {
-        private Stub1 stub1;
+        private Stub stub;
 
-        public StubWithGluedSetterWithoutDefaultConstructor(Stub1 stub1) {
-            this.stub1 = stub1;
+        public StubWithGluedSetterWithoutDefaultConstructor(Stub stub) {
+            this.stub = stub;
         }
 
-        public Stub1 getStub1() {
-            return stub1;
+        public Stub getStub() {
+            return stub;
         }
 
         @Glue
-        public void setStub1(Stub1 stub1) {
-            this.stub1 = stub1;
+        public void setStub(Stub stub) {
+            this.stub = stub;
         }
     }
 
     @Wheel
     public static class StubWithGluedSetterWithoutField {
         @Glue
-        public void setStub1(Stub1 stub1) {
-            System.out.println("----------------- stub1 = " + stub1);
+        public void setStub1(Stub stub) {
+            System.out.println("----------------- stub = " + stub);
         }
     }
 
     @Wheel
     public static class StubWithGluedFieldWithoutSetter {
         @Glue
-        private Stub1 stub1;
+        private Stub stub;
     }
 
     @Wheel

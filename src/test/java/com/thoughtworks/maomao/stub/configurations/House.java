@@ -1,7 +1,7 @@
 package com.thoughtworks.maomao.stub.configurations;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
 
 @Wheel
 public class House {

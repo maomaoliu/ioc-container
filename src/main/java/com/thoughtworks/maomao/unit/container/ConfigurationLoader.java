@@ -1,7 +1,7 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.unit.container;
 
-import com.thoughtworks.maomao.annotations.Bean;
-import com.thoughtworks.maomao.annotations.Configuration;
+import com.thoughtworks.maomao.unit.annotations.Bean;
+import com.thoughtworks.maomao.unit.annotations.Configuration;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.lang.reflect.InvocationTargetException;

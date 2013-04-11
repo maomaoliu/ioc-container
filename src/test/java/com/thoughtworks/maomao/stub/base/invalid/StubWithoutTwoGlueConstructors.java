@@ -1,19 +1,19 @@
 package com.thoughtworks.maomao.stub.base.invalid;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.stub.base.Stub;
 
 @Wheel
 public class StubWithoutTwoGlueConstructors {
-    private Stub1 stub1;
+    private Stub stub;
 
     @Glue
     public StubWithoutTwoGlueConstructors() {
     }
 
     @Glue
-    public StubWithoutTwoGlueConstructors(Stub1 stub1) {
-        this.stub1 = stub1;
+    public StubWithoutTwoGlueConstructors(Stub stub) {
+        this.stub = stub;
     }
 }

@@ -1,10 +1,11 @@
-package com.thoughtworks.maomao.annotations;
+package com.thoughtworks.maomao.unit.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Wheel {}
+public @interface Glue {
+}

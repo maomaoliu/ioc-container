@@ -1,11 +1,12 @@
-package com.thoughtworks.maomao.container;
+package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.unit.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.StubWithGluedField;
 import com.thoughtworks.maomao.stub.StubWithGluedFieldAndSetter;
-import com.thoughtworks.maomao.stub.base.Stub1;
+import com.thoughtworks.maomao.stub.base.Stub;
 import com.thoughtworks.maomao.stub.base.StubWithSetter;
-import com.thoughtworks.maomao.stub.base.sub.SubStub1;
+import com.thoughtworks.maomao.stub.base.sub.SubStub;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,22 +27,22 @@ public class GlueSetterTest {
     public void should_glue_by_setter() throws InvalidWheelException {
         StubWithSetter wheel = container.getWheel(StubWithSetter.class);
         assertNotNull(wheel);
-        assertEquals(Stub1.class, wheel.getStub1().getClass());
+        assertEquals(Stub.class, wheel.getStub().getClass());
     }
 
     @Test
     public void should_glue_by_field() throws InvalidWheelException {
         StubWithGluedField wheel = container.getWheel(StubWithGluedField.class);
         assertNotNull(wheel);
-        assertEquals(Stub1.class, wheel.getStub1().getClass());
+        assertEquals(Stub.class, wheel.getStub().getClass());
     }
 
     @Test
     public void should_glue_by_field_and_setter() throws InvalidWheelException {
         StubWithGluedFieldAndSetter wheel = container.getWheel(StubWithGluedFieldAndSetter.class);
         assertNotNull(wheel);
-        assertEquals(Stub1.class, wheel.getStub1().getClass());
-        assertEquals(SubStub1.class, wheel.getSubStub1().getClass());
+        assertEquals(Stub.class, wheel.getStub().getClass());
+        assertEquals(SubStub.class, wheel.getSubStub().getClass());
     }
 
     @Test(expected = InvalidWheelException.class)
