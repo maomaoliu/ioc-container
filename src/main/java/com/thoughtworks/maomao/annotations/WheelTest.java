@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.unit.annotations;
+package com.thoughtworks.maomao.annotations;
 
 import com.thoughtworks.maomao.stub.base.Stub;
 import org.junit.Test;

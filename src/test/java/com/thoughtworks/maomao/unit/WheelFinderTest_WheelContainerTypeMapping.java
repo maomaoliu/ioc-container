@@ -1,5 +1,7 @@
-package com.thoughtworks.maomao.unit.container;
+package com.thoughtworks.maomao.unit;
 
+import com.thoughtworks.maomao.container.Loader;
+import com.thoughtworks.maomao.container.WheelFinder;
 import com.thoughtworks.maomao.stub.base.*;
 import org.junit.Before;
 import org.junit.Test;

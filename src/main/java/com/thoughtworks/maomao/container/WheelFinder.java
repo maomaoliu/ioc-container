@@ -1,6 +1,6 @@
-package com.thoughtworks.maomao.unit.container;
+package com.thoughtworks.maomao.container;
 
-import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.annotations.Wheel;
 
 import java.util.*;
 

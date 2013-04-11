@@ -1,5 +1,6 @@
-package com.thoughtworks.maomao.unit.container;
+package com.thoughtworks.maomao.unit;
 
+import com.thoughtworks.maomao.container.AnnotationRegistry;
 import com.thoughtworks.maomao.stub.annotations.StubAnnotation;
 import org.junit.Test;
 

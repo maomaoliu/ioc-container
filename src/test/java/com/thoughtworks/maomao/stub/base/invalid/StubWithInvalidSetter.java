@@ -1,7 +1,7 @@
 package com.thoughtworks.maomao.stub.base.invalid;
 
-import com.thoughtworks.maomao.unit.annotations.Glue;
-import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.annotations.Glue;
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.stub.base.Stub;
 
 public class StubWithInvalidSetter {

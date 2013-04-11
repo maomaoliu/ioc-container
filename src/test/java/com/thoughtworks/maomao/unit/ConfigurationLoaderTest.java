@@ -1,5 +1,7 @@
-package com.thoughtworks.maomao.unit.container;
+package com.thoughtworks.maomao.unit;
 
+import com.thoughtworks.maomao.container.ConfigurationLoader;
+import com.thoughtworks.maomao.container.Loader;
 import com.thoughtworks.maomao.stub.configurations.Bed;
 import com.thoughtworks.maomao.stub.configurations.Door;
 import com.thoughtworks.maomao.stub.configurations.WheelConfig;

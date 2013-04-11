@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.unit.container;
+package com.thoughtworks.maomao.container;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.reflect.ClassPath;
