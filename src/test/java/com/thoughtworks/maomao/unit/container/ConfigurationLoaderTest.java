@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.unit;
+package com.thoughtworks.maomao.unit.container;
 
 import com.thoughtworks.maomao.container.ConfigurationLoader;
 import com.thoughtworks.maomao.container.Loader;

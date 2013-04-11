@@ -1,6 +1,6 @@
 package com.thoughtworks.maomao.container;
 
-import com.thoughtworks.maomao.annotations.Glue;
+import com.thoughtworks.maomao.unit.annotations.Glue;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
 import java.lang.reflect.Constructor;

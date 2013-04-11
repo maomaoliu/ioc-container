@@ -1,7 +1,7 @@
 package com.thoughtworks.maomao.stub.scope.parent;
 
-import com.thoughtworks.maomao.annotations.Bean;
-import com.thoughtworks.maomao.annotations.Configuration;
+import com.thoughtworks.maomao.unit.annotations.Bean;
+import com.thoughtworks.maomao.unit.annotations.Configuration;
 
 @Configuration
 public class ParentConfig {
