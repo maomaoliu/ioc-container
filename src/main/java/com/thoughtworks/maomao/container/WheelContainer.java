@@ -23,12 +23,16 @@ public class WheelContainer {
     }
 
     public <T> T getWheel(Class<T> klazz) {
-        checkType(klazz);
         if (!configurationLoader.getBeans(klazz).isEmpty()) {
             return (T) configurationLoader.getBeans(klazz).get(0);
         }
         T childInstance = createInstance(klazz);
-        return childInstance == null ? parent.getWheel(klazz) : childInstance;
+        if (childInstance != null) {
+            return childInstance;
+        }
+        if (parent == null)
+            throw new InvalidWheelException("Wheel not found.");
+        return parent.getWheel(klazz);
     }
 
     private <T> T createInstance(Class<T> klazz) {
@@ -36,12 +40,4 @@ public class WheelContainer {
         return childImplementation == null ? null : (T) wheelCreator.createInstance(childImplementation);
     }
 
-    private <T> void checkType(Class<T> klazz) {
-        if (wheelFinder.findImplementation(klazz) == null) {
-            if (parent == null) {
-                throw new InvalidWheelException(String.format("Target wheel for %s does not exists", klazz.getName()));
-            }
-            parent.checkType(klazz);
-        }
-    }
 }

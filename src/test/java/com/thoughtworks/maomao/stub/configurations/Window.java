@@ -1,8 +1,5 @@
 package com.thoughtworks.maomao.stub.configurations;
 
-import com.thoughtworks.maomao.annotations.Wheel;
-
-@Wheel
 public class Window {
     private String material;
 
