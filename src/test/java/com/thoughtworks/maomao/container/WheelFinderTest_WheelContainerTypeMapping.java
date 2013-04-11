@@ -11,7 +11,7 @@ public class WheelFinderTest_WheelContainerTypeMapping {
     private WheelFinder wheelFinder;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         Loader loader = new Loader("com.thoughtworks.maomao.stub");
         wheelFinder = new WheelFinder(loader);
     }

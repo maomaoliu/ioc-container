@@ -16,7 +16,7 @@ public class ConfigurationTest {
     private WheelContainer wheelContainer;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         wheelContainer = new WheelContainer("com.thoughtworks.maomao.stub.configurations");
     }
 

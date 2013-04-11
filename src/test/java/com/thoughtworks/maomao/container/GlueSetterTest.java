@@ -18,7 +18,7 @@ public class GlueSetterTest {
     private WheelContainer container;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         container = new WheelContainer("com.thoughtworks.maomao.stub");
     }
 

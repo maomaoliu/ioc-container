@@ -19,7 +19,7 @@ public class ConfigurationLoaderTest {
     private ConfigurationLoader configurationLoader;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         loader = new Loader("com.thoughtworks.maomao.stub.configurations");
         configurationLoader = new ConfigurationLoader(loader);
     }
