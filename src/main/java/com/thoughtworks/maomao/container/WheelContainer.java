@@ -2,22 +2,18 @@ package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 public class WheelContainer {
 
     private WheelFinder wheelFinder;
-    private Map<Class, List> initBeanInstances;
     private WheelContainer parent;
     private Loader loader;
     private WheelCreator wheelCreator;
+    private ConfigurationLoader configurationLoader;
 
     public WheelContainer(String packageName) {
         loader = new Loader(packageName);
         wheelFinder = new WheelFinder(loader);
-        initBeanInstances = new ConfigurationLoader(loader).getBeans();
+        configurationLoader = new ConfigurationLoader(loader);
         this.wheelCreator = new WheelCreator(this);
     }
 
@@ -28,8 +24,8 @@ public class WheelContainer {
 
     public <T> T getWheel(Class<T> klazz) {
         checkType(klazz);
-        if (initBeanInstances.get(klazz) != null) {
-            return (T) initBeanInstances.get(klazz).get(0);
+        if (!configurationLoader.getBeans(klazz).isEmpty()) {
+            return (T) configurationLoader.getBeans(klazz).get(0);
         }
         T childInstance = createInstance(klazz);
         return childInstance == null ? parent.getWheel(klazz) : childInstance;

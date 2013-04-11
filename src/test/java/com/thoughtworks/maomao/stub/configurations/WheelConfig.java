@@ -13,4 +13,9 @@ public class WheelConfig {
         return new Door(WOODEN);
     }
 
+    @Bean
+    protected Bed bed() {
+        return new Bed("bad bed");
+    }
+
 }

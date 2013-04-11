@@ -26,7 +26,6 @@ public class WheelFinder {
         return implementationMapping.get(klazz);
     }
 
-
     private void addClass(Class<?> klazz) {
         implementationMapping.put(klazz, klazz);
         handleInterfacesAndSuperClass(klazz, klazz);
