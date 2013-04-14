@@ -38,8 +38,7 @@ public class ConfigurationLoader {
 
     private void addBean(Method method, Object object) throws InvocationTargetException, IllegalAccessException {
         Class<?> type = method.getReturnType();
-        TypeVariable<Method>[] typeParameters = method.getTypeParameters();
-        Object instance = method.invoke(object, typeParameters);
+        Object instance = method.invoke(object);
         List instances = beanMapping.get(type);
         if (instances == null) {
             instances = new ArrayList();

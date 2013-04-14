@@ -23,18 +23,18 @@ public class ConfigurationTest {
 
     @Test
     public void should_get_wheel_by_wheel_configuration() {
-        Door door = wheelContainer.getWheel(Door.class);
+        Door door = wheelContainer.getWheelInstance(Door.class);
         assertNotNull(door);
     }
 
     @Test (expected = InvalidWheelException.class)
     public void should_throw_exception_if_no_configuration() {
-        wheelContainer.getWheel(Window.class);
+        wheelContainer.getWheelInstance(Window.class);
     }
 
     @Test
     public void should_get_house_by_wheel_configuration() {
-        House house = wheelContainer.getWheel(House.class);
+        House house = wheelContainer.getWheelInstance(House.class);
         assertEquals(WheelConfig.WOODEN, house.getDoor().getMaterial());
     }
 }

@@ -3,7 +3,7 @@ package com.thoughtworks.maomao.unit.container;
 import com.thoughtworks.maomao.container.Loader;
 import com.thoughtworks.maomao.container.WheelFinder;
 import com.thoughtworks.maomao.stub.base.Stub;
-import com.thoughtworks.maomao.stub.base.invalid.StubWithoutPublicConstructor;
+import com.thoughtworks.maomao.invalid.StubWithoutPublicConstructor;
 import com.thoughtworks.maomao.stub.base.sub.SubStub;
 import org.junit.Test;
 
@@ -26,10 +26,10 @@ public class WheelFinderTest_FindWheelClasses {
         Loader loader = new Loader("com.thoughtworks.maomao.stub.base");
         WheelFinder wheelFinder = new WheelFinder(loader);
         Set<Class> wheels = wheelFinder.getWheelClasses();
-        assertEquals(23, wheels.size());
+        assertEquals(9, wheels.size());
         assertTrue(wheels.contains(Stub.class));
         assertTrue(wheels.contains(SubStub.class));
-        assertTrue(wheels.contains(StubWithoutPublicConstructor.PrivateDefaultConstructor.class));
+        assertFalse(wheels.contains(StubWithoutPublicConstructor.PrivateDefaultConstructor.class));
         assertFalse(wheels.contains(StubWithoutPublicConstructor.InnerStub.class));
     }
 

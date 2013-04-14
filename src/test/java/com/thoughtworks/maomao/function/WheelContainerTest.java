@@ -21,22 +21,22 @@ public class WheelContainerTest {
 
     @Test
     public void should_create_general_class() {
-        assertNotNull(container.getWheel(Stub.class));
+        assertNotNull(container.getWheelInstance(Stub.class));
     }
 
     @Test
     public void should_create_abstract_class() {
-        assertNotNull(container.getWheel(AbstractStub.class));
+        assertNotNull(container.getWheelInstance(AbstractStub.class));
     }
 
     @Test
     public void should_create_interface() {
-        assertNotNull(container.getWheel(StubInterface.class));
+        assertNotNull(container.getWheelInstance(StubInterface.class));
     }
 
     @Test(expected = InvalidWheelException.class)
     public void should_throw_exception_if_no_wheel() {
-        assertNotNull(container.getWheel(Assert.class));
+        assertNotNull(container.getWheelInstance(Assert.class));
     }
 
 }

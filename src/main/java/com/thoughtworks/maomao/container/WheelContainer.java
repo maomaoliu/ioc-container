@@ -1,20 +1,32 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
+import com.thoughtworks.maomao.unit.annotations.Wheel;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WheelContainer {
 
     private WheelFinder wheelFinder;
     private WheelContainer parent;
     private Loader loader;
-    private WheelCreator wheelCreator;
     private ConfigurationLoader configurationLoader;
+    private Map<Class, WheelInfo> wheelInfoMap = new HashMap<Class, WheelInfo>();
 
     public WheelContainer(String packageName) {
         loader = new Loader(packageName);
         wheelFinder = new WheelFinder(loader);
         configurationLoader = new ConfigurationLoader(loader);
-        this.wheelCreator = new WheelCreator(this);
+        initWheelsInfo(loader);
+    }
+
+    private void initWheelsInfo(Loader loader) {
+        List<Class> wheelClasses = loader.getClassesByAnnotation(Wheel.class);
+        for (Class wheelClass : wheelClasses) {
+            wheelInfoMap.put(wheelClass, new WheelInfo(wheelClass));
+        }
     }
 
     public WheelContainer(String packageName, WheelContainer parentContainer) {
@@ -22,9 +34,9 @@ public class WheelContainer {
         parent = parentContainer;
     }
 
-    public <T> T getWheel(Class<T> klazz) {
+    public <T> T getWheelInstance(Class<T> klazz) {
         if (!configurationLoader.getBeans(klazz).isEmpty()) {
-            return (T) configurationLoader.getBeans(klazz).get(0);
+            return configurationLoader.getBeans(klazz).get(0);
         }
         T childInstance = createInstance(klazz);
         if (childInstance != null) {
@@ -32,12 +44,23 @@ public class WheelContainer {
         }
         if (parent == null)
             throw new InvalidWheelException("Wheel not found.");
-        return parent.getWheel(klazz);
+        return parent.getWheelInstance(klazz);
     }
 
     private <T> T createInstance(Class<T> klazz) {
         Class childImplementation = wheelFinder.findImplementation(klazz);
-        return childImplementation == null ? null : (T) wheelCreator.createInstance(childImplementation);
+        return childImplementation == null ? null : (T) new WheelCreationContext(this).getInstance(getWheelInfo(childImplementation));
     }
 
+    public boolean hasBean(Class klazz) {
+        return !configurationLoader.getBeans(klazz).isEmpty();
+    }
+
+    public Object getBean(Class setterParameterType) {
+        return configurationLoader.getBeans(setterParameterType).get(0);
+    }
+
+    public WheelInfo getWheelInfo(Class klazz) {
+        return wheelInfoMap.get(klazz);
+    }
 }

@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.stub.base.invalid;
+package com.thoughtworks.maomao.invalid;
 
 import com.thoughtworks.maomao.unit.annotations.Glue;
 import com.thoughtworks.maomao.unit.annotations.Wheel;
