@@ -1,6 +1,6 @@
 package com.thoughtworks.maomao.stub.scope.child;
 
-import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.stub.scope.Person;
 
 import java.util.Random;

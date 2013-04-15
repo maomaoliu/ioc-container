@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.unit.annotations;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.stub.base.Stub;
 import org.junit.Test;
 

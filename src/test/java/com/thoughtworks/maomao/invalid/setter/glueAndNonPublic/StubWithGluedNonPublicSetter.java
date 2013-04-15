@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.invalid.setter.glueAndNonPublic;
 
 import com.thoughtworks.maomao.stub.base.Stub;
-import com.thoughtworks.maomao.unit.annotations.Glue;
-import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.annotations.Glue;
+import com.thoughtworks.maomao.annotations.Wheel;
 
 @Wheel
 public class StubWithGluedNonPublicSetter {

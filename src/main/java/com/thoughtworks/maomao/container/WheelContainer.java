@@ -1,7 +1,7 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
-import com.thoughtworks.maomao.unit.annotations.Wheel;
+import com.thoughtworks.maomao.annotations.Wheel;
 
 import java.util.HashMap;
 import java.util.List;

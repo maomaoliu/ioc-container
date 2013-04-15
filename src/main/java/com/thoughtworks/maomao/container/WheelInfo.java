@@ -1,7 +1,7 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
-import com.thoughtworks.maomao.unit.annotations.Glue;
+import com.thoughtworks.maomao.annotations.Glue;
 
 import java.lang.reflect.*;
 import java.util.HashSet;
