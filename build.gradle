@@ -1,5 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'maven'
+
+configurations {
+    deployerJars
+}
 
 repositories {
     mavenCentral()
@@ -11,6 +16,20 @@ task run(dependsOn: 'build') << {
             fork: true,
             classpath: "${sourceSets.main.runtimeClasspath.asPath}"
     )
+}
+
+task deploy {
+    dependsOn 'clean', 'uploadArchives'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployerJars
+        pom.groupId = 'noam'
+        pom.version = '0.1'
+        pom.artifactId = 'noam-ioc'
+        repository(url: "file://$buildDir/../../mvn-repo")
+    }
 }
 
 sourceSets {
@@ -25,4 +44,5 @@ dependencies {
             group: 'com.google.guava', name: 'guava', version: '14.0'
     testCompile 'junit:junit:4.8.1',
             'org.mockito:mockito-all:1.9.0'
+    deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
 }
