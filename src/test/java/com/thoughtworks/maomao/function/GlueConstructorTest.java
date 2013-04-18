@@ -1,7 +1,9 @@
 package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
+import com.thoughtworks.maomao.stub.annotations.AnotherWheel;
 import com.thoughtworks.maomao.stub.base.Stub;
 import com.thoughtworks.maomao.stub.base.StubByConstructor;
 import com.thoughtworks.maomao.stub.base.StubByConstructorWithMultipleParameters;
@@ -22,7 +24,7 @@ public class GlueConstructorTest {
 
     @Before
     public void setup() throws Exception {
-        container = new WheelContainer("com.thoughtworks.maomao.stub");
+        container = new WheelContainer("com.thoughtworks.maomao.stub", new Class[]{Wheel.class, AnotherWheel.class});
     }
 
     @Test
@@ -35,8 +37,8 @@ public class GlueConstructorTest {
     public void should_glue_by_constructor() {
         StubByConstructor stub = container.getWheelInstance(StubByConstructor.class);
         assertNotNull(stub);
-        Stub stub1 = stub.getStub();
-        assertNotNull(stub1);
+        assertNotNull(stub.getStub());
+        assertNotNull(stub.getOtherStub());
     }
 
     @Test

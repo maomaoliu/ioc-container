@@ -1,18 +1,17 @@
 package com.thoughtworks.maomao.container;
 
-import com.thoughtworks.maomao.annotations.Wheel;
-
+import java.lang.annotation.Annotation;
 import java.util.*;
 
 public class WheelFinder {
 
     private Map<Class, Class> implementationMapping = new HashMap<Class, Class>();
 
-    public WheelFinder(Loader loader) {
-        findWheels(loader.getClassesByAnnotation(Wheel.class));
+    public WheelFinder(Loader loader, Set<Class<? extends Annotation>> registeredAnnotations) {
+        findWheels(loader.getClassesByAnnotation(registeredAnnotations));
     }
 
-    private void findWheels(List<Class> wheelClasses) {
+    private void findWheels(Set<Class> wheelClasses) {
         for (Class wheel : wheelClasses) {
             addClass(wheel);
         }
@@ -43,4 +42,25 @@ public class WheelFinder {
         }
     }
 
+    public Set<Class> getWheelClasses(Class klazz) {
+        Set<Class> allWheelClasses = getWheelClasses();
+        Set<Class> result = new HashSet<Class>();
+        for (Class wheelClass : allWheelClasses) {
+            Class<?>[] interfaces = wheelClass.getInterfaces();
+            if (Arrays.asList(interfaces).contains(klazz) || getAllSuperClasses(wheelClass).contains(klazz)) {
+                result.add(wheelClass);
+            }
+        }
+        return result;
+    }
+
+    private Set<Class> getAllSuperClasses(Class klazz) {
+        Set<Class> result = new HashSet<Class>();
+        Class c = klazz;
+        while (c != null) {
+            result.add(c);
+            c = c.getSuperclass();
+        }
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package com.thoughtworks.maomao.unit.container;
 
 import com.thoughtworks.maomao.container.AnnotationRegistry;
+import com.thoughtworks.maomao.stub.annotations.AnotherWheel;
 import com.thoughtworks.maomao.stub.annotations.StubAnnotation;
 import org.junit.Test;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 
 public class AnnotationRegistryTest {
@@ -18,9 +20,9 @@ public class AnnotationRegistryTest {
         AnnotationRegistry annotationRegistry = new AnnotationRegistry("com.thoughtworks.maomao.stub.annotations");
         List<Class<? extends Annotation>> registeredAnnotations
                 = annotationRegistry.getRegisteredAnnotations();
-        assertThat(registeredAnnotations.size(), is(1));
-        Class<? extends Annotation> registeredAnnotation = registeredAnnotations.get(0);
-        assertEquals(StubAnnotation.class, registeredAnnotation);
+        assertThat(registeredAnnotations.size(), is(2));
+        assertTrue(registeredAnnotations.contains(StubAnnotation.class));
+        assertTrue(registeredAnnotations.contains(AnotherWheel.class));
     }
 
     @Test

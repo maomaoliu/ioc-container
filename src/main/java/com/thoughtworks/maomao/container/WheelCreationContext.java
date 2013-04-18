@@ -39,7 +39,13 @@ public class WheelCreationContext {
         WheelInfo wheelInfo = wheelContainer.getWheelInfo(instance.getClass());
         Set<Method> setterMethods = wheelInfo.getSetterMethods();
         for (Method setterMethod : setterMethods) {
-            setterMethod.invoke(instance, map.get(setterMethod.getParameterTypes()[0]));
+            Set<Class> parameterTypeClasses = wheelContainer.getWheelClasses(setterMethod.getParameterTypes()[0]);
+            for (Class parameterTypeClass : parameterTypeClasses) {
+                if (map.get(parameterTypeClass) != null) {
+                    setterMethod.invoke(instance, map.get(parameterTypeClass));
+                    break;
+                }
+            }
         }
     }
 

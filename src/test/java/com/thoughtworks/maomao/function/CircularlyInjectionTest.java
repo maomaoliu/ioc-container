@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.base.CircularStub1;
@@ -18,7 +19,7 @@ public class CircularlyInjectionTest {
 
     @Before
     public void setup() throws Exception {
-        container = new WheelContainer("com.thoughtworks.maomao.stub");
+        container = new WheelContainer("com.thoughtworks.maomao.stub", new Class[]{Wheel.class});
     }
 
     @Test
@@ -28,7 +29,7 @@ public class CircularlyInjectionTest {
         CircularStub2 stub2 = stub3.getStub2();
         CircularStub1 stub1InStub2 = stub2.getStub1();
         assertEquals(stub1InStub3, stub1InStub2);
-        assertEquals(stub3, stub1InStub2.getStub3());
+        assertEquals(stub3, stub1InStub2.getStub3() );
     }
 
     @Test(expected = InvalidWheelException.class)

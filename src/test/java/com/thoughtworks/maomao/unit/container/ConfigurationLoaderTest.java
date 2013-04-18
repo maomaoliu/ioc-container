@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.unit.container;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.ConfigurationLoader;
 import com.thoughtworks.maomao.container.Loader;
 import com.thoughtworks.maomao.stub.configurations.Bed;
@@ -8,7 +9,10 @@ import com.thoughtworks.maomao.stub.configurations.WheelConfig;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -21,7 +25,9 @@ public class ConfigurationLoaderTest {
 
     @Before
     public void setup() throws Exception {
-        loader = new Loader("com.thoughtworks.maomao.stub.configurations");
+        Set<Class<? extends Annotation>> registeredAnnotations = new HashSet<Class<? extends Annotation>>();
+        registeredAnnotations.add(Wheel.class);
+        loader = new Loader("com.thoughtworks.maomao.stub.configurations", registeredAnnotations);
         configurationLoader = new ConfigurationLoader(loader);
     }
 

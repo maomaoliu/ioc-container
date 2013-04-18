@@ -2,10 +2,10 @@ package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.annotations.Wheel;
+import com.thoughtworks.maomao.web.annotation.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.annotation.Annotation;
+import java.util.*;
 
 public class WheelContainer {
 
@@ -14,24 +14,26 @@ public class WheelContainer {
     private Loader loader;
     private ConfigurationLoader configurationLoader;
     private Map<Class, WheelInfo> wheelInfoMap = new HashMap<Class, WheelInfo>();
+    private HashSet<Class<? extends Annotation>> registeredAnnotations;
 
-    public WheelContainer(String packageName) {
-        loader = new Loader(packageName);
-        wheelFinder = new WheelFinder(loader);
+    public WheelContainer(String packageName, Class<? extends Annotation>[] annotationTypes) {
+        registeredAnnotations = new HashSet<Class<? extends Annotation>>(Arrays.asList(annotationTypes));
+        loader = new Loader(packageName, registeredAnnotations);
+        wheelFinder = new WheelFinder(loader, registeredAnnotations);
         configurationLoader = new ConfigurationLoader(loader);
         initWheelsInfo(loader);
     }
 
+    public WheelContainer(String packageName, WheelContainer parentContainer, Class<? extends Annotation>[] annotationTypes) {
+        this(packageName, annotationTypes);
+        parent = parentContainer;
+    }
+
     private void initWheelsInfo(Loader loader) {
-        List<Class> wheelClasses = loader.getClassesByAnnotation(Wheel.class);
+        Set<Class> wheelClasses = loader.getClassesByAnnotation(registeredAnnotations);
         for (Class wheelClass : wheelClasses) {
             wheelInfoMap.put(wheelClass, new WheelInfo(wheelClass));
         }
-    }
-
-    public WheelContainer(String packageName, WheelContainer parentContainer) {
-        this(packageName);
-        parent = parentContainer;
     }
 
     public <T> T getWheelInstance(Class<T> klazz) {
@@ -61,6 +63,18 @@ public class WheelContainer {
     }
 
     public WheelInfo getWheelInfo(Class klazz) {
-        return wheelInfoMap.get(klazz);
+        WheelInfo wheelInfo = wheelInfoMap.get(klazz);
+        if (wheelInfo != null) {
+            return wheelInfo;
+        }
+        return wheelInfoMap.get(wheelFinder.findImplementation(klazz));
+    }
+
+    public Set<Class> getWheelClasses(Class klazz) {
+        return wheelFinder.getWheelClasses(klazz);
+    }
+
+    public Set<Class> getAllClassWithAnnotation(Class<? extends Annotation> annotationType) {
+        return loader.getClassesByAnnotation(annotationType);
     }
 }

@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.scope.Person;
@@ -19,13 +20,13 @@ public class ParentContainerTest {
 
     @Before
     public void setup(){
-        parentContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.parent");
-        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child", parentContainer);
+        parentContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.parent", new Class[]{Wheel.class});
+        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child", parentContainer, new Class[]{Wheel.class});
     }
 
     @Test(expected = InvalidWheelException.class)
     public void should_not_find_Parent_class_in_child_container_if_not_set_parent_container() {
-        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child");
+        childContainer = new WheelContainer("com.thoughtworks.maomao.stub.scope.child", new Class[]{Wheel.class});
         childContainer.getWheelInstance(Parent.class);
     }
 

@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.function;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
 import com.thoughtworks.maomao.stub.configurations.Door;
@@ -18,7 +19,7 @@ public class ConfigurationTest {
 
     @Before
     public void setup() throws Exception {
-        wheelContainer = new WheelContainer("com.thoughtworks.maomao.stub.configurations");
+        wheelContainer = new WheelContainer("com.thoughtworks.maomao.stub.configurations", new Class[]{Wheel.class});
     }
 
     @Test

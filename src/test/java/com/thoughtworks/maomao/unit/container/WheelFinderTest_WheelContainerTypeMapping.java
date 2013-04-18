@@ -1,10 +1,15 @@
 package com.thoughtworks.maomao.unit.container;
 
+import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.Loader;
 import com.thoughtworks.maomao.container.WheelFinder;
 import com.thoughtworks.maomao.stub.base.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,8 +19,10 @@ public class WheelFinderTest_WheelContainerTypeMapping {
 
     @Before
     public void setup() throws Exception {
-        Loader loader = new Loader("com.thoughtworks.maomao.stub");
-        wheelFinder = new WheelFinder(loader);
+        Set<Class<? extends Annotation>> registeredAnnotations = new HashSet<Class<? extends Annotation>>();
+        registeredAnnotations.add(Wheel.class);
+        Loader loader = new Loader("com.thoughtworks.maomao.stub", registeredAnnotations);
+        wheelFinder = new WheelFinder(loader, registeredAnnotations);
     }
 
     @Test
