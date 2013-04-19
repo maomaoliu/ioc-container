@@ -7,7 +7,10 @@ configurations {
 }
 
 repositories {
-    mavenCentral()
+//    mavenCentral()
+    maven {
+        url "http://repo2.maven.org/maven2"
+    }
 }
 
 task run(dependsOn: 'build') << {
