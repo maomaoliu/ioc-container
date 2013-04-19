@@ -1,8 +1,6 @@
 package com.thoughtworks.maomao.container;
 
 import com.thoughtworks.maomao.exception.InvalidWheelException;
-import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.web.annotation.Service;
 
 import java.lang.annotation.Annotation;
 import java.util.*;
