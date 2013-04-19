@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h2>$message$</h2>
+        <form action='/say' method='post'>
+            <input type='text' name='message' />
+            <input type='submit' value='Submit' />
+        </form>
+    </body>
+</html>
