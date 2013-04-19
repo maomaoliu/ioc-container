@@ -1,4 +1,4 @@
-package com.thoughtworks.maomao.web;
+package com.thoughtworks.maomao.web.filter;
 
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.web.annotation.Controller;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class HiFilter implements Filter {
+public class WheelFilter implements Filter {
     private Map<String, Class> servletMap = new HashMap<String, Class>();
     private WheelContainer wheelContainer;
 

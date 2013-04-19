@@ -19,7 +19,7 @@ public abstract class AbstractWebTest {
         server = new Server(8080);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.addEventListener(new NoamServletContainerInitializer());
+        context.addEventListener(getServletContainerInitializer());
         server.setHandler(context);
         server.start();
 

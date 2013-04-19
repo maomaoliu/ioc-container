@@ -1,5 +1,6 @@
 package com.thoughtworks.maomao.web;
 
+import com.thoughtworks.maomao.web.config.NoamServletContainerInitializer;
 import com.thoughtworks.maomao.web.service.GreetingServiceImpl;
 import org.eclipse.jetty.client.Address;
 import org.eclipse.jetty.client.ContentExchange;
@@ -14,7 +15,12 @@ import static org.junit.Assert.assertTrue;
 public class SmokeTest extends AbstractWebTest {
     @Override
     protected ServletContextListener getServletContainerInitializer() {
-        return new NoamServletContainerInitializer();
+        return new NoamServletContainerInitializer() {
+            @Override
+            public String getPackage() {
+                return "com.thoughtworks.maomao.web";
+            }
+        };
     }
 
     @Test
