@@ -3,10 +3,10 @@ package com.thoughtworks.maomao.function;
 import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.exception.InvalidWheelException;
+import com.thoughtworks.maomao.invalid.InvalidSelfCircularStub;
 import com.thoughtworks.maomao.stub.base.CircularStub1;
 import com.thoughtworks.maomao.stub.base.CircularStub2;
 import com.thoughtworks.maomao.stub.base.CircularStub3;
-import com.thoughtworks.maomao.invalid.InvalidSelfCircularStub;
 import org.junit.Before;
 import org.junit.Test;
 
