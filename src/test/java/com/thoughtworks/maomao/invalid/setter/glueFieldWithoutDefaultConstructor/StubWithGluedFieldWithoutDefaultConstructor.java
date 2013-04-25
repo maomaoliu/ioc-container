@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.invalid.setter.glueFieldWithoutDefaultConstructor;
 
+import com.thoughtworks.maomao.stub.base.Stub;
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.stub.base.Stub;
 
 @Wheel
 public class StubWithGluedFieldWithoutDefaultConstructor {

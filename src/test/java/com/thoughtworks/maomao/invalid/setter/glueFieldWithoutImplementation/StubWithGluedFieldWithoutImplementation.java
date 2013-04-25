@@ -1,8 +1,8 @@
 package com.thoughtworks.maomao.invalid.setter.glueFieldWithoutImplementation;
 
+import com.thoughtworks.maomao.invalid.UnknownStub;
 import com.thoughtworks.maomao.annotations.Glue;
 import com.thoughtworks.maomao.annotations.Wheel;
-import com.thoughtworks.maomao.invalid.UnknownStub;
 
 @Wheel
 public class StubWithGluedFieldWithoutImplementation {

@@ -1,9 +1,9 @@
 package com.thoughtworks.maomao.invalid.setter.wrongSetterArguments;
 
-import com.thoughtworks.maomao.annotations.Glue;
-import com.thoughtworks.maomao.annotations.Wheel;
 import com.thoughtworks.maomao.stub.base.Stub;
 import com.thoughtworks.maomao.stub.base.sub.SubStub;
+import com.thoughtworks.maomao.annotations.Glue;
+import com.thoughtworks.maomao.annotations.Wheel;
 
 @Wheel
 public class StubWithWrongArgumentsSetter {

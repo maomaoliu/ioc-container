@@ -1,10 +1,11 @@
 package com.thoughtworks.maomao.unit.container;
 
 import com.thoughtworks.maomao.annotations.Wheel;
+import com.thoughtworks.maomao.container.ConfigurationLoader;
 import com.thoughtworks.maomao.container.Loader;
 import com.thoughtworks.maomao.container.WheelFinder;
-import com.thoughtworks.maomao.invalid.StubWithoutPublicConstructor;
 import com.thoughtworks.maomao.stub.base.Stub;
+import com.thoughtworks.maomao.invalid.StubWithoutPublicConstructor;
 import com.thoughtworks.maomao.stub.base.sub.SubStub;
 import org.junit.Before;
 import org.junit.Test;

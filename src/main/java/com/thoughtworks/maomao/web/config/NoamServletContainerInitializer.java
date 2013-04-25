@@ -3,7 +3,7 @@ package com.thoughtworks.maomao.web.config;
 import com.thoughtworks.maomao.container.WheelContainer;
 import com.thoughtworks.maomao.web.annotation.Controller;
 import com.thoughtworks.maomao.web.annotation.Service;
-import com.thoughtworks.maomao.web.filter.NoamFilter;
+import com.thoughtworks.maomao.web.filter.WheelFilter;
 import com.thoughtworks.maomao.web.servlet.DispatchServlet;
 
 import javax.servlet.DispatcherType;
@@ -24,7 +24,7 @@ public abstract class NoamServletContainerInitializer implements ServletContextL
         wheelContainer = new WheelContainer(getPackage(), new Class[]{Controller.class, Service.class});
         ServletContext servletContext = sce.getServletContext();
         servletContext.setAttribute("WHEEL_CONTAINER", wheelContainer);
-        servletContext.addFilter("wheelFilter", NoamFilter.class).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD), false, "/*");
+        servletContext.addFilter("wheelFilter", WheelFilter.class).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD), false, "/*");
         servletContext.addServlet("dispatchServlet", DispatchServlet.class).addMapping("/*");
     }
 
