@@ -22,11 +22,20 @@ task deploy {
     dependsOn 'clean', 'uploadArchives'
 }
 
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourceJar
+}
+
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
         pom.groupId = 'noam'
-        pom.version = '0.1'
+        pom.version = '0.11'
         pom.artifactId = 'noam-ioc'
         repository(url: "file://$buildDir/../../mvn-repo")
     }
